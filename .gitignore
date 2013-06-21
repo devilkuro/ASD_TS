@@ -221,4 +221,4 @@ out/
 *.exe
 /out
 *.tmp*
-.tkenvrc
+/simulations/.tkenvrc
