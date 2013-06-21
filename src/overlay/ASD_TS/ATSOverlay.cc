@@ -91,26 +91,7 @@ void ATSOverlay::handleTimerEvent(cMessage* msg)
 }
 void ATSOverlay::finishOverlay()
 {
-    if (nodeState == NodeState_Joined) {
-        double maxDataTimeStamp = 0;
-        for (unsigned int i = 0; i < dataTimeStamp.size(); i++) {
-            if (i == 0) globalStatistics->recordOutVector(
-                                                          "Fanjing:ATS:maxdataTimeStamp0",
-                                                          dataTimeStamp[i]);
-            else if (i == 1) globalStatistics->recordOutVector(
-                                                               "Fanjing:ATS:maxdataTimeStamp1",
-                                                               dataTimeStamp[i]);
-            else if (i == 2) globalStatistics->recordOutVector(
-                                                               "Fanjing:ATS:maxdataTimeStamp2",
-                                                               dataTimeStamp[i]);
-            maxDataTimeStamp = maxDataTimeStamp > dataTimeStamp[i]
-                    ? maxDataTimeStamp : dataTimeStamp[i];
-        }
-        globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp",
-                                          maxDataTimeStamp);
-        globalStatistics->recordOutVector("Fanjing:ATS:JoinTime", endTime
-                - startTime);
-    }
+
 }
 
 // Private functions
@@ -132,18 +113,34 @@ void ATSOverlay::handleATSMessgae(ATSMessage *atsMsg)
         //EV<< "ATSOverlay::handleATSMessage@Time" <<simTime()<<"\n"<<"{\tError:unInitialized Message Type.}\n";
         if (nodeAddress == ServerAddress) {
 			readyMenberNum++;
-			if (readyMenberNum == joinedMemberNum * inputDegree) {
-				readyMenberNum = 0;
+			if (readyMenberNum == joinedMemberNum * inputDegree)
+			{
 				isBusy = false;
-				if (joinedMemberNum < PeerInfoList.size()) {
-					for (unsigned int i = 0; i < PeerInfoList.size(); i++) {
-						if (!PeerInfoList[i]->getIsJoined()) {
+				if (joinedMemberNum < PeerInfoList.size())
+				{
+					for (unsigned int i = 0; i < PeerInfoList.size(); i++)
+					{
+						if (!PeerInfoList[i]->getIsJoined())
+						{
 							sendATSQueryResponseMessage(
 									PeerInfoList[i]->getAddress());
 							break;
 						}
 					}
+				} else if (readyMenberNum == (targetOverlayTerminalNum - 1) * inputDegree)
+				{
+					ATSMessage* atsMsg = new ATSMessage();
+					for (unsigned int i = 0; i < childLinkList.size(); i++)
+					{
+						if (0 == childLinkList[i]->getDataSeq())
+						{
+							sendATSMessageToUDP(atsMsg->dup(),
+									childLinkList[i]->getTargetAddress());
+						}
+					}
+
 				}
+				readyMenberNum = 0;
 			}
 		} else {
 			for (unsigned int i = 0; i < childLinkList.size(); i++) {
@@ -153,7 +150,27 @@ void ATSOverlay::handleATSMessgae(ATSMessage *atsMsg)
 				}
 			}
 
+			double maxDataTimeStamp = 0;
+			for (unsigned int i = 0; i < dataTimeStamp.size(); i++) {
+				if (i == 0)
+					globalStatistics->recordOutVector(
+							"Fanjing:ATS:maxdataTimeStamp0", dataTimeStamp[i]);
+				else if (i == 1)
+					globalStatistics->recordOutVector(
+							"Fanjing:ATS:maxdataTimeStamp1", dataTimeStamp[i]);
+				else if (i == 2)
+					globalStatistics->recordOutVector(
+							"Fanjing:ATS:maxdataTimeStamp2", dataTimeStamp[i]);
+				maxDataTimeStamp
+						= maxDataTimeStamp > dataTimeStamp[i] ? maxDataTimeStamp
+								: dataTimeStamp[i];
+			}
+			globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp",
+					maxDataTimeStamp);
+			globalStatistics->recordOutVector("Fanjing:ATS:JoinTime", endTime
+					- startTime);
 		}
+
         break;
     case ATS_QUERY:
         atsQueryMsg = check_and_cast<ATSQueryMessage*> (atsMsg);
@@ -717,16 +734,6 @@ void ATSOverlay::handleATSJoinSuccessMessage(ATSJoinSuccessMessage *atsJoinSucce
         atsStatisticMsg->setDataSeq(childLinkList[i]->getDataSeq());
         atsStatisticMsg->setHop(0);
         sendATSMessageToUDP(atsStatisticMsg,childLinkList[i]->getTargetAddress());
-    }
-    if(joinedMemberNum==targetOverlayTerminalNum-1){
-        ATSMessage* atsMsg = new ATSMessage();
-        for (unsigned int i = 0; i < childLinkList.size(); i++) {
-            if (0 == childLinkList[i]->getDataSeq()) {
-                sendATSMessageToUDP(atsMsg->dup(),
-                                    childLinkList[i]->getTargetAddress());
-            }
-        }
-
     }
 }
 
