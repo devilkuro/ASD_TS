@@ -581,7 +581,7 @@ void ATSOverlay::startJoinProcess(){
 }
 void ATSOverlay::handleATSJoinEvalResponseMessage(ATSJoinEvalResponseMessage *atsJoinEvalResponseMsg)
 {
-    if (nodeState != NodeState_Joining||nodeState!=NodeState_Joined) {
+    if (nodeState != NodeState_Joining&&nodeState!=NodeState_Joined) {
         EV<< "ATSOverlay::handleATSJoinEvalResponseMessage@Time" <<simTime()<<"\n";
         EV<< "\tdataTimeStamp.size()" <<atsJoinEvalResponseMsg->getDataTimeStampArraySize()<<"\n";
         ATSPeerInfo* atsPeerInfo = new ATSPeerInfo();
