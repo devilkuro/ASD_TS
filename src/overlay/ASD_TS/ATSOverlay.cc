@@ -43,7 +43,7 @@ void ATSOverlay::initializeOverlay(int stage)
 
     inputDegree = par("inputDegree");
     outputDegree = par("outputDegree");
-
+    targetOverlayTerminalNum = par("targetOverlayTerminalNum");
     seq = par("seq");
     freeDegree = outputDegree;
     serverFreeDegree = outputDegree;
@@ -52,6 +52,7 @@ void ATSOverlay::initializeOverlay(int stage)
     joinedMemberNum = 0;
     readyMenberNum = 0;
     isBusy = false;
+
     WATCH(isBusy);
     WATCH(joinedMemberNum);
     WATCH(readyMenberNum);
@@ -90,7 +91,26 @@ void ATSOverlay::handleTimerEvent(cMessage* msg)
 }
 void ATSOverlay::finishOverlay()
 {
-
+    if (nodeState == NodeState_Joined) {
+        double maxDataTimeStamp = 0;
+        for (unsigned int i = 0; i < dataTimeStamp.size(); i++) {
+            if (i == 0) globalStatistics->recordOutVector(
+                                                          "Fanjing:ATS:maxdataTimeStamp0",
+                                                          dataTimeStamp[i]);
+            else if (i == 1) globalStatistics->recordOutVector(
+                                                               "Fanjing:ATS:maxdataTimeStamp1",
+                                                               dataTimeStamp[i]);
+            else if (i == 2) globalStatistics->recordOutVector(
+                                                               "Fanjing:ATS:maxdataTimeStamp2",
+                                                               dataTimeStamp[i]);
+            maxDataTimeStamp = maxDataTimeStamp > dataTimeStamp[i]
+                    ? maxDataTimeStamp : dataTimeStamp[i];
+        }
+        globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp",
+                                          maxDataTimeStamp);
+        globalStatistics->recordOutVector("Fanjing:ATS:JoinTime", endTime
+                - startTime);
+    }
 }
 
 // Private functions
@@ -132,25 +152,7 @@ void ATSOverlay::handleATSMessgae(ATSMessage *atsMsg)
 							childLinkList[i]->getTargetAddress());
 				}
 			}
-			double maxDataTimeStamp = 0;
-			for (unsigned int i = 0; i < dataTimeStamp.size(); i++) {
-				if(i==0)
-					globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp0",
-							dataTimeStamp[i]);
-				else if(i==1)
-					globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp1",
-							dataTimeStamp[i]);
-				else if(i==2)
-					globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp2",
-							dataTimeStamp[i]);
-				maxDataTimeStamp
-						= maxDataTimeStamp > dataTimeStamp[i] ? maxDataTimeStamp
-								: dataTimeStamp[i];
-			}
-			globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp",
-					maxDataTimeStamp);
-			globalStatistics->recordOutVector("Fanjing:ATS:JoinTime", endTime
-					- startTime);
+
 		}
         break;
     case ATS_QUERY:
@@ -651,6 +653,7 @@ void ATSOverlay::checkNodeState(){
     endTime = simTime()/SECOND;
     ATSJoinSuccessMessage* atsJoinSuccessMsg = new ATSJoinSuccessMessage();
     sendATSMessageToUDP(atsJoinSuccessMsg, ServerAddress);
+    nodeState = NodeState_Joined;
     getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "green");
 }
 
@@ -715,7 +718,7 @@ void ATSOverlay::handleATSJoinSuccessMessage(ATSJoinSuccessMessage *atsJoinSucce
         atsStatisticMsg->setHop(0);
         sendATSMessageToUDP(atsStatisticMsg,childLinkList[i]->getTargetAddress());
     }
-    if(joinedMemberNum==499){
+    if(joinedMemberNum==targetOverlayTerminalNum-1){
         ATSMessage* atsMsg = new ATSMessage();
         for (unsigned int i = 0; i < childLinkList.size(); i++) {
             if (0 == childLinkList[i]->getDataSeq()) {

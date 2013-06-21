@@ -77,6 +77,7 @@ private:
 
     NodeState nodeState;
     //DEBUG
+    unsigned int targetOverlayTerminalNum;
     unsigned int seq;
     double startTime;
     double endTime;
