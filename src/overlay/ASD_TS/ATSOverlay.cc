@@ -89,28 +89,29 @@ void ATSOverlay::handleTimerEvent(cMessage* msg)
         delete(msg);
     }
 }
-void ATSOverlay::finishOverlay()
-{
-    if (nodeState == NodeState_Joined) {
-        double maxDataTimeStamp = 0;
-        for (unsigned int i = 0; i < dataTimeStamp.size(); i++) {
-            if (i == 0) globalStatistics->recordOutVector(
-                                                          "Fanjing:ATS:maxdataTimeStamp0",
-                                                          dataTimeStamp[i]);
-            else if (i == 1) globalStatistics->recordOutVector(
-                                                               "Fanjing:ATS:maxdataTimeStamp1",
-                                                               dataTimeStamp[i]);
-            else if (i == 2) globalStatistics->recordOutVector(
-                                                               "Fanjing:ATS:maxdataTimeStamp2",
-                                                               dataTimeStamp[i]);
-            maxDataTimeStamp = maxDataTimeStamp > dataTimeStamp[i]
-                    ? maxDataTimeStamp : dataTimeStamp[i];
-        }
-        globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp",
-                                          maxDataTimeStamp);
-        globalStatistics->recordOutVector("Fanjing:ATS:JoinTime", endTime
-                - startTime);
-    }
+void ATSOverlay::finishOverlay() {
+
+	double maxDataTimeStamp = 0;
+	for (unsigned int i = 0; i < dataTimeStamp.size(); i++)
+	{
+		if (i == 0)
+			globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp0",
+					dataTimeStamp[i]);
+		else if (i == 1)
+			globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp1",
+					dataTimeStamp[i]);
+		else if (i == 2)
+			globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp2",
+					dataTimeStamp[i]);
+		maxDataTimeStamp
+				= maxDataTimeStamp > dataTimeStamp[i] ? maxDataTimeStamp
+						: dataTimeStamp[i];
+	}
+	globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp",
+			maxDataTimeStamp);
+	globalStatistics->recordOutVector("Fanjing:ATS:JoinTime", endTime
+			- startTime);
+
 }
 
 // Private functions
