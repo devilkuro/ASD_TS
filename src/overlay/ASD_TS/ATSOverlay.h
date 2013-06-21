@@ -58,6 +58,7 @@ private:
     ATSLinkVector childLinkList;
     //各数据流时间戳
     std::vector<double> dataTimeStamp;
+    std::vector<unsigned int> dataHops;
     //网络成员状态
     ATSPeerInfoVector PeerInfoList;
 
@@ -116,6 +117,7 @@ private:
     void startJoinProcess();
     void checkNodeState();
     void updateVisualization();
+    unsigned int getDataNumBySeq(unsigned int seq);
 
 public:
     virtual void initializeOverlay(int stage);

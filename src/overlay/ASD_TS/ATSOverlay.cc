@@ -89,6 +89,19 @@ void ATSOverlay::handleTimerEvent(cMessage* msg)
         delete(msg);
     }
 }
+
+unsigned int ATSOverlay::getDataNumBySeq(unsigned int seq){
+    unsigned int dataNum = 0;
+        if(childLinkList.size()==0){
+            return 0;
+        }
+        for(unsigned int i=0;i<childlinklist.size();i++){
+            if(childLinkList[i]->getDataSeq()==seq){
+                dataNum++;
+            }
+        }
+        return dataNum;
+}
 void ATSOverlay::finishOverlay() {
 
 	if (nodeState == NodeState_Joined&&nodeAddress!=ServerAddress)
@@ -96,15 +109,30 @@ void ATSOverlay::finishOverlay() {
 		double maxDataTimeStamp = 0;
 		for (unsigned int i = 0; i < dataTimeStamp.size(); i++)
 		{
-			if (i == 0)
-				globalStatistics->recordOutVector(
-						"Fanjing:ATS:maxdataTimeStamp0", dataTimeStamp[i]);
-			else if (i == 1)
+			if (i == 0){
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:maxdataTimeStamp0", dataTimeStamp[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:maxdataHops0", dataHops[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:maxdataDataNum0", getDataNumBySeq(i));
+			}
+			else if (i == 1){
 				globalStatistics->recordOutVector(
 						"Fanjing:ATS:maxdataTimeStamp1", dataTimeStamp[i]);
-			else if (i == 2)
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:maxdataHops1", dataHops[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:maxdataDataNum1", getDataNumBySeq(i));
+			}
+			else if (i == 2){
 				globalStatistics->recordOutVector(
 						"Fanjing:ATS:maxdataTimeStamp2", dataTimeStamp[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:maxdataHops2", dataHops[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:maxdataDataNum2", getDataNumBySeq(i));
+			}
 			maxDataTimeStamp
 					= maxDataTimeStamp > dataTimeStamp[i] ? maxDataTimeStamp
 							: dataTimeStamp[i];
@@ -371,6 +399,7 @@ void ATSOverlay::startJoinProcess(){
         parentLinkList.push_back(atsLink);
         double timeStamp = 0;
         dataTimeStamp.push_back(timeStamp);
+        dataHops.push_back(0);
     }
     EV<< "\tdataTimeStamp.size()" <<dataTimeStamp.size()<<"\n";
     for(unsigned int i = 0;i<inputDegree;i++){
@@ -729,7 +758,6 @@ void ATSOverlay::handleATSJoinSuccessMessage(ATSJoinSuccessMessage *atsJoinSucce
                                     childLinkList[i]->getTargetAddress());
             }
         }
-
     }
 }
 
@@ -737,7 +765,9 @@ void ATSOverlay::handleATSStatisticMessage(ATSStatisticMessage *atsStatisticMsg)
 {
     parentLinkList[atsStatisticMsg->getDataSeq()]->setLag(simTime()/SECOND-atsStatisticMsg->getSendTime());
     dataTimeStamp[atsStatisticMsg->getDataSeq()]=simTime()/SECOND-atsStatisticMsg->getCreateTime();
+    dataHops[atsStatisticMsg->getDataSeq()]=atsStatisticMsg->getHop()+1;
 
+    atsStatisticMsg->setHop(dataHops[atsStatisticMsg->getDataSeq()]);
     getParentModule()->getParentModule()->getDisplayString().setTagArg("t",0,dataTimeStamp[seq]*1000);
     for(unsigned int i=0;i<childLinkList.size();i++){
         if(atsStatisticMsg->getDataSeq()==childLinkList[i]->getDataSeq()){
@@ -785,4 +815,5 @@ ATSOverlay::~ATSOverlay()
     }
     PeerInfoList.clear();
     dataTimeStamp.clear();
+    dataHops.clear();
 }
