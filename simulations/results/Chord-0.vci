@@ -1,0 +1,29 @@
+file 40654 1367129665                                           
+version 2
+run Chord-0-20130425-16:40:54-5620
+attr configname Chord
+attr datetime 20130425-16:40:54
+attr experiment Chord
+attr inifile E:/2011112922/WorkStations/OMNet41/OverSim-20101103/simulations/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network oversim.underlay.simpleunderlay.SimpleUnderlayNetwork
+attr processid 5620
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+vector 1  SimpleUnderlayNetwork.globalObserver.globalStatistics  "GlobalNodeList: Number of nodes"  ETV
+1	1112 1223 1846 110332 50 3700 74 9 11 761 7871
+vector 2  SimpleUnderlayNetwork.globalObserver.globalStatistics  "KBRTestApp: One-way Hop Count"  ETV
+2	2335 16139 1915 110715 51.484156282 3711.071146672 629 0 4 1524 4160
+vector 3  SimpleUnderlayNetwork.globalObserver.globalStatistics  "KBRTestApp: One-way Latency"  ETV
+3	18474 21876 1915 110715 51.484156282 3711.071146672 629 0 0.937854316 238.225219391 121.87389575102
+vector 4  SimpleUnderlayNetwork.globalObserver.globalStatistics  "LifetimeChurn: Time between deletes"  ETV
+4	40350 75 5598 58867 184.182294204 2057.020091646 2 184.182294204 1872.837797442 2057.020091646 3541444.5330257
+vector 5  SimpleUnderlayNetwork.globalObserver.globalStatistics  "LifetimeChurn: Session Time"  ETV
+5	40425 116 23958 70219 921.610261242 2450.484907365 3 4115.779962426 15057.842586373 25264.446780629 280776407.87814
+vector 6  SimpleUnderlayNetwork.globalObserver.globalStatistics  "LifetimeChurn: Time between creates"  ETV
+6	40541 113 23958 70219 921.610261242 2450.484907365 3 600.698275407 928.176370716 2440.830340172 2054012.9811409

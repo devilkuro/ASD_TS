@@ -1,0 +1,45 @@
+/*
+ * NewOverlay.cc
+ *
+ *  Created on: 2012-10-14
+ *      Author: Fanjing
+ */
+
+#include <iostream>
+
+#include <UnderlayConfigurator.h>
+#include <GlobalStatistics.h>
+
+#include "NewOverlay_m.h"
+
+#include "NewOverlay.h"
+
+// Important! This line must be present for each module you extend (see BaseApp)
+Define_Module( NewOverlay);
+
+#define BIGBIT (1 << 24)
+
+void NewOverlay::initializeOverlay(int stage)
+{
+    if (stage != MIN_STAGE_OVERLAY) return;
+
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("i", 0, "device/pc_vs");
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 0, "block/circle_vs");
+
+}
+void NewOverlay::setOwnNodeID()
+{
+
+}
+void NewOverlay::joinOverlay()
+{
+
+}
+void NewOverlay::finishOverlay()
+{
+
+}
+//void NewOverlay::handleUDPMessage(BaseOverlayMessage *msg)
+//{
+//
+//}

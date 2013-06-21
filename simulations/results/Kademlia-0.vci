@@ -1,0 +1,31 @@
+file 195045 1367129412                                          
+version 2
+run Kademlia-0-20130425-16:41:13-5620
+attr configname Kademlia
+attr datetime 20130425-16:41:13
+attr experiment Kademlia
+attr inifile E:/2011112922/WorkStations/OMNet41/OverSim-20101103/simulations/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network oversim.underlay.simpleunderlay.SimpleUnderlayNetwork
+attr processid 5620
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+vector 8  SimpleUnderlayNetwork.globalObserver.globalStatistics  "Kademlia: Buckets Refreshed Per Task"  ETV
+8	1236 37738 2569 71697 20.792298691 6435.716618931 1469 0 8 210 552
+vector 9  SimpleUnderlayNetwork.globalObserver.globalStatistics  "GlobalNodeList: Number of nodes"  ETV
+9	38974 2142 2709 70941 50 6400 128 19 27 2919 67005
+vector 10  SimpleUnderlayNetwork.globalObserver.globalStatistics  "KBRTestApp: One-way Hop Count"  ETV
+10	41116 64501 2723 71724 56.413208515 6437.651713759 2421 0 4 6079 16487
+vector 11  SimpleUnderlayNetwork.globalObserver.globalStatistics  "KBRTestApp: One-way Latency"  ETV
+11	105617 87442 2723 71724 56.413208515 6437.651713759 2421 0 1.13906817 668.682376508 292.73616408173
+vector 12  SimpleUnderlayNetwork.globalObserver.globalStatistics  "LifetimeChurn: Time between deletes"  ETV
+12	193059 501 4772 71725 194.182294204 6442.969028284 13 91.896990126 1727.299962755 6442.969028284 5508335.6595921
+vector 13  SimpleUnderlayNetwork.globalObserver.globalStatistics  "LifetimeChurn: Session Time"  ETV
+13	193560 756 5069 69862 221.901281461 6343.365963957 19 1045.612257751 30670.515678066 183581.07554114 2827878184.1583
+vector 14  SimpleUnderlayNetwork.globalObserver.globalStatistics  "LifetimeChurn: Time between creates"  ETV
+14	194316 729 5069 69862 221.901281461 6343.365963957 19 9.896858383 1204.206966552 6324.484553899 3571918.4381487

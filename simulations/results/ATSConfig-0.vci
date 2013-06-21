@@ -1,0 +1,24 @@
+file 43998 1371644373                                           
+version 2
+run ATSConfig-0-20130619-20:13:03-9512
+attr configname ATSConfig
+attr datetime 20130619-20:13:03
+attr experiment ATSConfig
+attr inifile E:/2011112922/workspace/omnetpp/OverSim-20101103/simulations/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network oversim.underlay.simpleunderlay.SimpleUnderlayNetwork
+attr processid 9512
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+
+vector 1  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp  ETV
+vector 2  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:JoinTime  ETV
+vector 3  SimpleUnderlayNetwork.globalObserver.globalStatistics  "GlobalNodeList: Number of nodes"  ETV
+1	790 21247 3007186 3017384 1478.775846628 1479.012454284 499 0.083958094000081 0.36430944799986 121.39267419796 29.812289845494
+2	22037 21161 3007186 3017384 1478.775846628 1479.012454284 499 0.061040400999673 1.272070947 125.550710807 51.495061939453
+3	43198 800 3018328 3034634 1500 3450 40 500 500 20000 10000000

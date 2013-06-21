@@ -1,0 +1,19 @@
+file 1400 1367129412                                            
+version 2
+run MyConfig-0-20121017-16:08:18-5980
+attr configname MyConfig
+attr datetime 20121017-16:08:18
+attr experiment MyConfig
+attr inifile E:/2011112922/WorkStations/OMNet41/OverSim-20101103/simulations/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network oversim.underlay.simpleunderlay.SimpleUnderlayNetwork
+attr processid 5980
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+vector 1  SimpleUnderlayNetwork.globalObserver.globalStatistics  "GlobalNodeList: Number of nodes"  ETV
+1	598 802 12634 718869 50 2300 46 10 10 460 4600

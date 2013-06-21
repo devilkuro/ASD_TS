@@ -1,0 +1,20 @@
+version 2
+run BambooLarge-0-20120702-20:29:47-4988
+attr configname BambooLarge
+attr datetime 20120702-20:29:47
+attr experiment BambooLarge
+attr inifile E:/2011112922/WorkStations/OMNet41/OverSim-20101103/simulations/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network oversim.underlay.simpleunderlay.SimpleUnderlayNetwork
+attr processid 4988
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+
+scalar SimpleUnderlayNetwork.underlayConfigurator 	"Terminals added" 	793
+scalar SimpleUnderlayNetwork.underlayConfigurator 	"Terminals removed" 	0
+scalar SimpleUnderlayNetwork.globalObserver.globalStatistics 	"GlobalStatistics: Simulation Time" 	77.887630866

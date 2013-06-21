@@ -1,0 +1,29 @@
+file 3223 1367129417                                            
+version 2
+run Nice20-0-20130425-16:43:36-2344
+attr configname Nice20
+attr datetime 20130425-16:43:36
+attr experiment Nice20
+attr inifile E:/2011112922/WorkStations/OMNet41/OverSim-20101103/simulations/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network oversim.underlay.simpleunderlay.SimpleUnderlayNetwork
+attr processid 2344
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+vector 1  SimpleUnderlayNetwork.globalObserver.globalStatistics  "ParetoChurn: Session Time"  ETV
+1	1100 469 9819 190398 71.261956429 739.929342 12 3.4722366782608 6612.5338476328 25550.045411287 129437322.64765
+vector 2  SimpleUnderlayNetwork.globalObserver.globalStatistics  "ParetoChurn: Time between creates"  ETV
+2	1569 435 9819 190398 71.261956429 739.929342 12 4.353219887 163.334925898 683.15672406 63188.447828005
+vector 3  SimpleUnderlayNetwork.globalObserver.globalStatistics  "GlobalNodeList: Number of nodes"  ETV
+3	2004 231 17385 193233 100 750 14 21 24 317 7191
+vector 4  SimpleUnderlayNetwork.globalObserver.globalStatistics  "ParetoChurn: Time between deletes"  ETV
+4	2235 330 20887 160316 113.051258925 619.837242288 9 2.261403141 170.509565886 619.837242288 65728.073924583
+vector 5  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:Nice:dataTimeStamp  ETV
+5	2565 319 24683 164344 128.051258925 634.837242288 9 0.419102138 0.650981618 4.664998947 2.4603803771453
+vector 6  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:Nice:joinCostTime  ETV
+6	2884 339 24683 164344 128.051258925 634.837242288 9 0.156301552 1.029570495 4.860978105 3.357957265306
