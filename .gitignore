@@ -216,7 +216,7 @@ pip-log.txt
 
 #OMNet++
 out/
-simulations/results/
+/simulations/results/
 *.xml
 *.exe
 /out
