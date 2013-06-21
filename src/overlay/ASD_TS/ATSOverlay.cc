@@ -91,7 +91,7 @@ void ATSOverlay::handleTimerEvent(cMessage* msg)
 }
 void ATSOverlay::finishOverlay() {
 
-	if (nodeState == NodeState_Joined)
+	if (nodeState == NodeState_Joined&&nodeAddress!=ServerAddress)
 	{
 		double maxDataTimeStamp = 0;
 		for (unsigned int i = 0; i < dataTimeStamp.size(); i++)
