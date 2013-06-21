@@ -31,6 +31,7 @@ simple ATSOverlay extends BaseOverlay
         int inputDegree;
         //Êä³ö¶ÈÊý
         int outputDegree;
+        int seq;
 }
 
 module ATSOverlayModules like IOverlay{

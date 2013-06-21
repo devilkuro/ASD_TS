@@ -44,6 +44,7 @@ void ATSOverlay::initializeOverlay(int stage)
     inputDegree = par("inputDegree");
     outputDegree = par("outputDegree");
 
+    seq = par("seq");
     freeDegree = outputDegree;
     serverFreeDegree = outputDegree;
 
@@ -731,7 +732,7 @@ void ATSOverlay::handleATSStatisticMessage(ATSStatisticMessage *atsStatisticMsg)
     parentLinkList[atsStatisticMsg->getDataSeq()]->setLag(simTime()/SECOND-atsStatisticMsg->getSendTime());
     dataTimeStamp[atsStatisticMsg->getDataSeq()]=simTime()/SECOND-atsStatisticMsg->getCreateTime();
 
-    getParentModule()->getParentModule()->getDisplayString().setTagArg("t",0,dataTimeStamp[0]*1000);
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("t",0,dataTimeStamp[seq]*1000);
     for(unsigned int i=0;i<childLinkList.size();i++){
         if(atsStatisticMsg->getDataSeq()==childLinkList[i]->getDataSeq()){
             sendATSMessageToUDP(atsStatisticMsg->dup(),childLinkList[i]->getTargetAddress());
@@ -746,7 +747,7 @@ void ATSOverlay::updateVisualization(){
     showOverlayNeighborArrow(ServerAddress,true,newArrows[0]);
     deleteOverlayNeighborArrow(ServerAddress);
     bool flag=true;
-    unsigned int l=0;
+    unsigned int l=seq;
     for(unsigned int i = 0;i<childLinkList.size();i++){
         if(childLinkList[i]->getDataSeq()==l&&childLinkList[i]->getState()==ATS_LINK_CONNECTED){
             showOverlayNeighborArrow(childLinkList[i]->getTargetAddress(),flag,newArrows[0]);
