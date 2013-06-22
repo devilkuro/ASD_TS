@@ -95,7 +95,7 @@ unsigned int ATSOverlay::getDataNumBySeq(unsigned int seq){
         if(childLinkList.size()==0){
             return 0;
         }
-        for(unsigned int i=0;i<childlinklist.size();i++){
+        for(unsigned int i=0;i<childLinkList.size();i++){
             if(childLinkList[i]->getDataSeq()==seq){
                 dataNum++;
             }
