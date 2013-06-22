@@ -80,6 +80,7 @@ private:
     //DEBUG
     unsigned int targetOverlayTerminalNum;
     unsigned int seq;
+    unsigned int infoCollectNum;
     double startTime;
     double endTime;
     unsigned int forceInsertTimes;

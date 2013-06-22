@@ -45,6 +45,7 @@ void ATSOverlay::initializeOverlay(int stage)
     outputDegree = par("outputDegree");
     targetOverlayTerminalNum = par("targetOverlayTerminalNum");
     seq = par("seq");
+    infoCollectNum = par("infoCollectNum");
     freeDegree = outputDegree;
     serverFreeDegree = outputDegree;
 
@@ -634,7 +635,7 @@ void ATSOverlay::handleATSJoinEvalResponseMessage(ATSJoinEvalResponseMessage *at
         }
         PeerInfoList.push_back(atsPeerInfo);
         //To decide whether starting the join process
-        if(PeerInfoList.size()>=20||PeerInfoList.size()>=memberNum) {
+        if(PeerInfoList.size()>=infoCollectNum||PeerInfoList.size()>=memberNum) {
             startJoinProcess();
             nodeState=NodeState_Joining;
         }
