@@ -1,0 +1,42 @@
+file 194479 1372579558                                          
+version 2
+run ATSConfig-large-2-0-20130630-16:00:23-1532
+attr configname ATSConfig-large-2
+attr datetime 20130630-16:00:23
+attr experiment ATSConfig-large-2
+attr inifile E:/2011112922/WorkStations/OMNet41/OverSim-20101103/simulations/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network oversim.underlay.simpleunderlay.SimpleUnderlayNetwork
+attr processid 1532
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+
+vector 1  SimpleUnderlayNetwork.globalObserver.globalStatistics  "GlobalNodeList: Number of nodes"  ETV
+vector 2  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp0  ETV
+vector 3  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataHops0  ETV
+vector 4  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataDataNum0  ETV
+vector 5  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp1  ETV
+vector 6  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataHops1  ETV
+vector 7  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataDataNum1  ETV
+vector 8  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp2  ETV
+vector 9  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataHops2  ETV
+vector 10  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataDataNum2  ETV
+vector 11  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp  ETV
+vector 12  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:JoinTime  ETV
+1	1708 580 3018488 3030195 1550 2950 29 500 500 14500 7250000
+2	2288 21547 3030634 3030634 2999.824710304 2999.824710304 499 0.04047570900002 0.43266398299988 62.542784113959 9.3496742769444
+3	23835 13993 3030634 3030634 2999.824710304 2999.824710304 499 1 11 3075 20837
+4	37828 13972 3030634 3030634 2999.824710304 2999.824710304 499 0 9 496 3602
+5	51800 21365 3030634 3030634 2999.824710304 2999.824710304 499 0.11618822699984 1.0016499609999 118.12631955696 29.984849714172
+6	73165 13972 3030634 3030634 2999.824710304 2999.824710304 499 1 7 2244 10810
+7	87137 13972 3030634 3030634 2999.824710304 2999.824710304 499 0 9 496 3458
+8	101109 21618 3030634 3030634 2999.824710304 2999.824710304 499 0.025855621999881 0.49448094599984 50.199922825961 6.3091522246993
+9	122727 13972 3030634 3030634 2999.824710304 2999.824710304 499 1 8 2638 14760
+10	136699 14471 3030634 3030634 2999.824710304 2999.824710304 499 0 9 496 3502
+11	151170 21862 3030634 3030634 2999.824710304 2999.824710304 499 0.14400809199992 1.0016499609999 121.69845497696 31.353341473178
+12	173032 21447 3030634 3030634 2999.824710304 2999.824710304 499 0.103070989 2.7295423659996 427.677933854 404.08630966002

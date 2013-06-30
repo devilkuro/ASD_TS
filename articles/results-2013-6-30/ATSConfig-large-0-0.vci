@@ -1,0 +1,42 @@
+file 198719 1372577171                                          
+version 2
+run ATSConfig-large-0-0-20130630-15:16:09-4424
+attr configname ATSConfig-large-0
+attr datetime 20130630-15:16:09
+attr experiment ATSConfig-large-0
+attr inifile E:/2011112922/WorkStations/OMNet41/OverSim-20101103/simulations/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network oversim.underlay.simpleunderlay.SimpleUnderlayNetwork
+attr processid 4424
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+
+vector 27  SimpleUnderlayNetwork.globalObserver.globalStatistics  "GlobalNodeList: Number of nodes"  ETV
+vector 28  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp0  ETV
+vector 29  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataHops0  ETV
+vector 30  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataDataNum0  ETV
+vector 31  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp1  ETV
+vector 32  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataHops1  ETV
+vector 33  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataDataNum1  ETV
+vector 34  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp2  ETV
+vector 35  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataHops2  ETV
+vector 36  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataDataNum2  ETV
+vector 37  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp  ETV
+vector 38  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:JoinTime  ETV
+27	1717 630 3018328 3030463 1500 2950 30 500 500 15000 7500000
+28	2347 22021 3030880 3030880 2999.886081009 2999.886081009 499 0.040243816999919 0.28087074299992 59.718020505006 8.5515026486488
+29	24368 14471 3030880 3030880 2999.886081009 2999.886081009 499 1 9 2796 16750
+30	38839 14471 3030880 3030880 2999.886081009 2999.886081009 499 0 9 496 3468
+31	53310 21840 3030880 3030880 2999.886081009 2999.886081009 499 0.1202441800001 0.35874392599999 114.61133894001 26.908384389737
+32	75150 14471 3030880 3030880 2999.886081009 2999.886081009 499 1 8 2278 11226
+33	89621 14471 3030880 3030880 2999.886081009 2999.886081009 499 0 9 496 3436
+34	104092 22100 3030880 3030880 2999.886081009 2999.886081009 499 0.02412644900005 0.2419487300001 48.610497678009 5.4908430092004
+35	126192 14471 3030880 3030880 2999.886081009 2999.886081009 499 1 9 2557 13823
+36	140663 14471 3030880 3030880 2999.886081009 2999.886081009 499 0 9 496 3322
+37	155134 21853 3030880 3030880 2999.886081009 2999.886081009 499 0.14731416500013 0.35874392599999 118.66118294001 28.450415995574
+38	176987 21732 3030880 3030880 2999.886081009 2999.886081009 499 0.061040400999673 1.272070947 125.550710807 51.495061939453
