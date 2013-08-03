@@ -841,6 +841,7 @@ void NewOverlay::handleNewStatisticMessage(NewStatisticMessage *msg)
     str1=std::string(newNumStr[msg->getDataSeq()]);
     simtime_t second=1.0;
     dataTimeStamp[msg->getDataSeq()]=msg->getDataTimeStamp()+simTime()-msg->getSentTime();
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("t",0,dataTimeStamp[0]*1000);
     jumpNum[msg->getDataSeq()]=msg->getJumpNum()+1;
     str0="Fanjing:NEW::jumpNumHistogram";
     str0+=str1;
