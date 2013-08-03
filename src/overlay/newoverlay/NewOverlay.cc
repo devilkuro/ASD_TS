@@ -9,7 +9,7 @@
 Define_Module( NewOverlay);
 
 #define BIGBIT (1 << 24)
-const char *newArrows[] = { "m=m,50,50,50,50;ls=yellow,2",
+const char *newArrows[] = { "m=m,50,50,50,50;ls=orange,2",
                                 "m=m,50,50,50,50;ls=magenta,3",
                                 "m=m,50,50,50,50;ls=red,4",
                                 "m=m,50,50,50,50;ls=orange,5",
@@ -39,7 +39,7 @@ void NewOverlay::initializeOverlay(int stage)
     serverNode = TransportAddress(IPAddress(BIGBIT+1),thisNode.getPort());
 
     getParentModule()->getParentModule()->getDisplayString().setTagArg("i", 0, "device/pc_vs");
-    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 0, "block/circle_vs");
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 0, "block/circle_s");
     if(serverNode == nodeAddress){
         nodeType = ServerNode;
         getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "yellow");
@@ -547,7 +547,7 @@ void NewOverlay::checkLinkState(){
     sendMessageToUDP(serverNode,joinSuccessMsg);
     joinSuccessTime = simTime();
     globalStatistics->recordOutVector("Fanjing:New::joinSuccessTime: ",myKey);
-    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "green");
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "white");
     nodeState = NodeState_Joined;
 }
 
@@ -814,7 +814,7 @@ void NewOverlay::handleNewJoinSuccessMessage(NewJoinSuccessMessage *msg){
             EV<<"[Fanjing]NewOverlay::ServerNode -> NodeState_Init: " <<msg->getSrcNode()<<std::endl;
             if(joinedNodeList.size()==terminalNum-1){
 
-                getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "blue");
+                getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "black");
                 for(unsigned int i=0;i<childList.size();i++) {
                     NewStatisticMessage *statisticMsg = new NewStatisticMessage();
                     statisticMsg->setSrcNode(nodeAddress);

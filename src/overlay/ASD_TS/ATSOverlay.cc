@@ -21,7 +21,7 @@ Define_Module( ATSOverlay);
 
 #define BIGBIT (1 << 24)
 
-static const char *newArrows[] = { "m=m,50,50,50,50;ls=yellow,2",
+static const char *newArrows[] = { "m=m,50,50,50,50;ls=orange,2",
                                 "m=m,50,50,50,50;ls=magenta,3",
                                 "m=m,50,50,50,50;ls=red,4",
                                 "m=m,50,50,50,50;ls=orange,5",
@@ -59,12 +59,12 @@ void ATSOverlay::initializeOverlay(int stage)
     WATCH(readyMenberNum);
 
     getParentModule()->getParentModule()->getDisplayString().setTagArg("i", 0, "device/pc_vs");
-    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 0, "block/circle_vs");
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 0, "block/circle_s");
     if(nodeAddress!=ServerAddress){
         ATSQueryMessage* atsQueryMsg = new ATSQueryMessage();
         sendATSMessageToUDP(atsQueryMsg,ServerAddress);
     }else{
-        getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "yellow");
+        getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "black");
     }
 }
 
@@ -687,7 +687,7 @@ void ATSOverlay::checkNodeState(){
     ATSJoinSuccessMessage* atsJoinSuccessMsg = new ATSJoinSuccessMessage();
     sendATSMessageToUDP(atsJoinSuccessMsg, ServerAddress);
     nodeState = NodeState_Joined;
-    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "green");
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "white");
 }
 
 void ATSOverlay::handleATSInsertMessage(ATSInsertMessage *atsInsertMsg)
