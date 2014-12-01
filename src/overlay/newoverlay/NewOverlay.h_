@@ -1,0 +1,37 @@
+/*
+ * NewOverlay.h
+ *
+ *  Created on: 2012-10-8
+ *      Author: Fanjing
+ */
+
+#ifndef NEWOVERLAY_H_
+#define NEWOVERLAY_H_
+#include "BaseOverlay.h"
+
+
+class NewOverlay : public BaseOverlay{
+
+private:
+    enum NodeType{
+        ServerNode = 0,
+        PeerNode = 1,
+    } nodeType;
+
+    enum NodeState{
+        Query = 0,
+        JoinEval = 1,
+        Join = 2,
+        InsertQuery = 3,
+        Insert = 4,
+        Wait = 5,
+    } nodeState;
+
+    void initializeOverlay(int stage);
+    void setOwnNodeID();
+    void joinOverlay();
+    void finishOverlay();
+    void handleUDPMessage(BaseOverlayMessage *msg);
+};
+
+#endif /* NEWOVERLAY_H_ */
