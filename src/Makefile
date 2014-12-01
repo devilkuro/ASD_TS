@@ -56,6 +56,7 @@ INCLUDE_PATH = \
     -Icommon/cbr \
     -Icommon/cbr/globalViewBuilder \
     -Ioverlay \
+    -Ioverlay/ASD_TS \
     -Ioverlay/bamboo \
     -Ioverlay/broose \
     -Ioverlay/chord \
@@ -63,6 +64,7 @@ INCLUDE_PATH = \
     -Ioverlay/kademlia \
     -Ioverlay/koorde \
     -Ioverlay/myoverlay \
+    -Ioverlay/newoverlay \
     -Ioverlay/nice \
     -Ioverlay/ntree \
     -Ioverlay/pastry \
@@ -207,6 +209,10 @@ OBJS = \
     $O/common/cbr/globalViewBuilder/StrategySendAll.o \
     $O/common/cbr/globalViewBuilder/StrategySimplifyCoords.o \
     $O/common/cbr/globalViewBuilder/StrategyTreeTest.o \
+    $O/overlay/ASD_TS/ATSLink.o \
+    $O/overlay/ASD_TS/ATSOverlay.o \
+    $O/overlay/ASD_TS/ATSPeerInfo.o \
+    $O/overlay/ASD_TS/ATSPeerManager.o \
     $O/overlay/bamboo/Bamboo.o \
     $O/overlay/broose/Broose.o \
     $O/overlay/broose/BrooseBucket.o \
@@ -227,6 +233,8 @@ OBJS = \
     $O/overlay/kademlia/KademliaNodeHandle.o \
     $O/overlay/koorde/Koorde.o \
     $O/overlay/myoverlay/MyOverlay.o \
+    $O/overlay/newoverlay/NewOverlay.o \
+    $O/overlay/newoverlay/NewPeerInfo.o \
     $O/overlay/nice/Nice.o \
     $O/overlay/nice/NiceCluster.o \
     $O/overlay/nice/NicePeerInfo.o \
@@ -312,11 +320,13 @@ OBJS = \
     $O/common/TreeManagementMessage_m.o \
     $O/common/cbr/CBR-DHTMessage_m.o \
     $O/common/cbr/CoordMessages_m.o \
+    $O/overlay/ASD_TS/ATSOverlay_m.o \
     $O/overlay/broose/BrooseMessage_m.o \
     $O/overlay/chord/ChordMessage_m.o \
     $O/overlay/gia/GiaMessage_m.o \
     $O/overlay/kademlia/KademliaMessage_m.o \
     $O/overlay/myoverlay/MyOverlay_m.o \
+    $O/overlay/newoverlay/NewOverlay_m.o \
     $O/overlay/nice/NiceMessage_m.o \
     $O/overlay/ntree/NTree_m.o \
     $O/overlay/pastry/PastryMessage_m.o \
@@ -351,11 +361,13 @@ MSGFILES = \
     common/TreeManagementMessage.msg \
     common/cbr/CBR-DHTMessage.msg \
     common/cbr/CoordMessages.msg \
+    overlay/ASD_TS/ATSOverlay.msg \
     overlay/broose/BrooseMessage.msg \
     overlay/chord/ChordMessage.msg \
     overlay/gia/GiaMessage.msg \
     overlay/kademlia/KademliaMessage.msg \
     overlay/myoverlay/MyOverlay.msg \
+    overlay/newoverlay/NewOverlay.msg \
     overlay/nice/NiceMessage.msg \
     overlay/ntree/NTree.msg \
     overlay/pastry/PastryMessage.msg \
@@ -464,6 +476,7 @@ clean:
 	$(Q)-rm -f common/cbr/*_m.cc common/cbr/*_m.h
 	$(Q)-rm -f common/cbr/globalViewBuilder/*_m.cc common/cbr/globalViewBuilder/*_m.h
 	$(Q)-rm -f overlay/*_m.cc overlay/*_m.h
+	$(Q)-rm -f overlay/ASD_TS/*_m.cc overlay/ASD_TS/*_m.h
 	$(Q)-rm -f overlay/bamboo/*_m.cc overlay/bamboo/*_m.h
 	$(Q)-rm -f overlay/broose/*_m.cc overlay/broose/*_m.h
 	$(Q)-rm -f overlay/chord/*_m.cc overlay/chord/*_m.h
@@ -471,6 +484,7 @@ clean:
 	$(Q)-rm -f overlay/kademlia/*_m.cc overlay/kademlia/*_m.h
 	$(Q)-rm -f overlay/koorde/*_m.cc overlay/koorde/*_m.h
 	$(Q)-rm -f overlay/myoverlay/*_m.cc overlay/myoverlay/*_m.h
+	$(Q)-rm -f overlay/newoverlay/*_m.cc overlay/newoverlay/*_m.h
 	$(Q)-rm -f overlay/nice/*_m.cc overlay/nice/*_m.h
 	$(Q)-rm -f overlay/ntree/*_m.cc overlay/ntree/*_m.h
 	$(Q)-rm -f overlay/pastry/*_m.cc overlay/pastry/*_m.h
@@ -499,7 +513,7 @@ cleanall: clean
 
 depend:
 	$(qecho) Creating dependencies...
-	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc applications/*.cc applications/almtest/*.cc applications/dht/*.cc applications/giasearchapp/*.cc applications/i3/*.cc applications/i3/i3Apps/*.cc applications/kbrtestapp/*.cc applications/myapplication/*.cc applications/realworldtestapp/*.cc applications/scribe/*.cc applications/simplegameclient/*.cc applications/tcpexampleapp/*.cc applications/tierdummy/*.cc common/*.cc common/cbr/*.cc common/cbr/globalViewBuilder/*.cc overlay/*.cc overlay/bamboo/*.cc overlay/broose/*.cc overlay/chord/*.cc overlay/gia/*.cc overlay/kademlia/*.cc overlay/koorde/*.cc overlay/myoverlay/*.cc overlay/nice/*.cc overlay/ntree/*.cc overlay/pastry/*.cc overlay/pubsubmmog/*.cc overlay/quon/*.cc overlay/vast/*.cc tier2/*.cc tier2/dhttestapp/*.cc tier2/p2pns/*.cc tier2/simmud/*.cc tier3/*.cc tier3/xmlrpcinterface/*.cc tier3/xmlrpcinterface/xmlrpc++/*.cc underlay/*.cc underlay/inetunderlay/*.cc underlay/inetunderlay/ipv6/*.cc underlay/reaseunderlay/*.cc underlay/reaseunderlay/topologies/*.cc underlay/reaseunderlay/topologies/topology_example/*.cc underlay/reaseunderlay/topologies/topology_tiny_oversim/*.cc underlay/simpleunderlay/*.cc underlay/singlehostunderlay/*.cc
+	$(Q)$(MAKEDEPEND) $(INCLUDE_PATH) -f Makefile -P\$$O/ -- $(MSG_CC_FILES)  ./*.cc applications/*.cc applications/almtest/*.cc applications/dht/*.cc applications/giasearchapp/*.cc applications/i3/*.cc applications/i3/i3Apps/*.cc applications/kbrtestapp/*.cc applications/myapplication/*.cc applications/realworldtestapp/*.cc applications/scribe/*.cc applications/simplegameclient/*.cc applications/tcpexampleapp/*.cc applications/tierdummy/*.cc common/*.cc common/cbr/*.cc common/cbr/globalViewBuilder/*.cc overlay/*.cc overlay/ASD_TS/*.cc overlay/bamboo/*.cc overlay/broose/*.cc overlay/chord/*.cc overlay/gia/*.cc overlay/kademlia/*.cc overlay/koorde/*.cc overlay/myoverlay/*.cc overlay/newoverlay/*.cc overlay/nice/*.cc overlay/ntree/*.cc overlay/pastry/*.cc overlay/pubsubmmog/*.cc overlay/quon/*.cc overlay/vast/*.cc tier2/*.cc tier2/dhttestapp/*.cc tier2/p2pns/*.cc tier2/simmud/*.cc tier3/*.cc tier3/xmlrpcinterface/*.cc tier3/xmlrpcinterface/xmlrpc++/*.cc underlay/*.cc underlay/inetunderlay/*.cc underlay/inetunderlay/ipv6/*.cc underlay/reaseunderlay/*.cc underlay/reaseunderlay/topologies/*.cc underlay/reaseunderlay/topologies/topology_example/*.cc underlay/reaseunderlay/topologies/topology_tiny_oversim/*.cc underlay/simpleunderlay/*.cc underlay/singlehostunderlay/*.cc
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 $O/applications/almtest/ALMTest.o: applications/almtest/ALMTest.cc \
@@ -4050,6 +4064,79 @@ $O/common/cbr/globalViewBuilder/StrategyTreeTest.o: common/cbr/globalViewBuilder
 	$(INET_PROJ)/src/transport/contract/TCPCommand_m.h \
 	$(INET_PROJ)/src/transport/contract/TCPSocket.h \
 	$(INET_PROJ)/src/transport/contract/TCPSocketMap.h
+$O/overlay/ASD_TS/ATSLink.o: overlay/ASD_TS/ATSLink.cc \
+	common/TransportAddress.h \
+	common/oversim_mapset.h \
+	overlay/ASD_TS/ATSLink.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h
+$O/overlay/ASD_TS/ATSOverlay.o: overlay/ASD_TS/ATSOverlay.cc \
+	common/AbstractLookup.h \
+	common/BaseOverlay.h \
+	common/BaseRpc.h \
+	common/BaseTcpSupport.h \
+	common/BinaryValue.h \
+	common/CommonMessages_m.h \
+	common/Comparator.h \
+	common/ExtTCPSocketMap.h \
+	common/GlobalStatistics.h \
+	common/InitStages.h \
+	common/IterativeLookupConfiguration.h \
+	common/NodeHandle.h \
+	common/NodeVector.h \
+	common/OverSimMessage.h \
+	common/OverSimMessage_m.h \
+	common/OverlayKey.h \
+	common/ProxNodeHandle.h \
+	common/RecursiveLookup.h \
+	common/RpcListener.h \
+	common/RpcMacros.h \
+	common/RpcState.h \
+	common/TopologyVis.h \
+	common/TransportAddress.h \
+	common/Vector2D.h \
+	common/oversim_mapset.h \
+	overlay/ASD_TS/ATSLink.h \
+	overlay/ASD_TS/ATSOverlay.h \
+	overlay/ASD_TS/ATSOverlay_m.h \
+	overlay/ASD_TS/ATSPeerInfo.h \
+	overlay/ASD_TS/ATSPeerManager.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/base/INotifiable.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	$(INET_PROJ)/src/transport/contract/TCPCommand_m.h \
+	$(INET_PROJ)/src/transport/contract/TCPSocket.h \
+	$(INET_PROJ)/src/transport/contract/TCPSocketMap.h
+$O/overlay/ASD_TS/ATSOverlay_m.o: overlay/ASD_TS/ATSOverlay_m.cc \
+	common/BinaryValue.h \
+	common/CommonMessages_m.h \
+	common/NodeHandle.h \
+	common/OverSimMessage.h \
+	common/OverSimMessage_m.h \
+	common/OverlayKey.h \
+	common/TransportAddress.h \
+	common/Vector2D.h \
+	common/oversim_mapset.h \
+	overlay/ASD_TS/ATSOverlay_m.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h
+$O/overlay/ASD_TS/ATSPeerInfo.o: overlay/ASD_TS/ATSPeerInfo.cc \
+	common/TransportAddress.h \
+	common/oversim_mapset.h \
+	overlay/ASD_TS/ATSLink.h \
+	overlay/ASD_TS/ATSPeerInfo.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h
+$O/overlay/ASD_TS/ATSPeerManager.o: overlay/ASD_TS/ATSPeerManager.cc \
+	overlay/ASD_TS/ATSPeerManager.h
 $O/overlay/bamboo/Bamboo.o: overlay/bamboo/Bamboo.cc \
 	common/AbstractLookup.h \
 	common/BaseApp.h \
@@ -4862,6 +4949,93 @@ $O/overlay/myoverlay/MyOverlay_m.o: overlay/myoverlay/MyOverlay_m.cc \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
 	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h
+$O/overlay/newoverlay/NewOverlay.o: overlay/newoverlay/NewOverlay.cc \
+	common/AbstractLookup.h \
+	common/BaseOverlay.h \
+	common/BaseRpc.h \
+	common/BaseTcpSupport.h \
+	common/BinaryValue.h \
+	common/CommonMessages_m.h \
+	common/Comparator.h \
+	common/ExtTCPSocketMap.h \
+	common/GlobalStatistics.h \
+	common/InitStages.h \
+	common/IterativeLookupConfiguration.h \
+	common/NodeHandle.h \
+	common/NodeVector.h \
+	common/OverSimMessage.h \
+	common/OverSimMessage_m.h \
+	common/OverlayKey.h \
+	common/ProxNodeHandle.h \
+	common/RecursiveLookup.h \
+	common/RpcListener.h \
+	common/RpcMacros.h \
+	common/RpcState.h \
+	common/TopologyVis.h \
+	common/TransportAddress.h \
+	common/UnderlayConfigurator.h \
+	common/Vector2D.h \
+	common/oversim_mapset.h \
+	overlay/newoverlay/NewOverlay.h \
+	overlay/newoverlay/NewOverlay_m.h \
+	overlay/newoverlay/NewPeerInfo.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/base/INotifiable.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	$(INET_PROJ)/src/transport/contract/TCPCommand_m.h \
+	$(INET_PROJ)/src/transport/contract/TCPSocket.h \
+	$(INET_PROJ)/src/transport/contract/TCPSocketMap.h
+$O/overlay/newoverlay/NewOverlay_m.o: overlay/newoverlay/NewOverlay_m.cc \
+	common/BinaryValue.h \
+	common/CommonMessages_m.h \
+	common/NodeHandle.h \
+	common/OverSimMessage.h \
+	common/OverSimMessage_m.h \
+	common/OverlayKey.h \
+	common/TransportAddress.h \
+	common/Vector2D.h \
+	common/oversim_mapset.h \
+	overlay/newoverlay/NewOverlay_m.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h
+$O/overlay/newoverlay/NewPeerInfo.o: overlay/newoverlay/NewPeerInfo.cc \
+	common/AbstractLookup.h \
+	common/BaseOverlay.h \
+	common/BaseRpc.h \
+	common/BaseTcpSupport.h \
+	common/BinaryValue.h \
+	common/CommonMessages_m.h \
+	common/Comparator.h \
+	common/ExtTCPSocketMap.h \
+	common/InitStages.h \
+	common/IterativeLookupConfiguration.h \
+	common/NodeHandle.h \
+	common/NodeVector.h \
+	common/OverSimMessage.h \
+	common/OverSimMessage_m.h \
+	common/OverlayKey.h \
+	common/ProxNodeHandle.h \
+	common/RecursiveLookup.h \
+	common/RpcListener.h \
+	common/RpcMacros.h \
+	common/RpcState.h \
+	common/TopologyVis.h \
+	common/TransportAddress.h \
+	common/Vector2D.h \
+	common/oversim_mapset.h \
+	overlay/newoverlay/NewPeerInfo.h \
+	$(INET_PROJ)/src/base/INETDefs.h \
+	$(INET_PROJ)/src/base/INotifiable.h \
+	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
+	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
+	$(INET_PROJ)/src/networklayer/contract/IPvXAddress.h \
+	$(INET_PROJ)/src/transport/contract/TCPCommand_m.h \
+	$(INET_PROJ)/src/transport/contract/TCPSocket.h \
+	$(INET_PROJ)/src/transport/contract/TCPSocketMap.h
 $O/overlay/nice/Nice.o: overlay/nice/Nice.cc \
 	common/AbstractLookup.h \
 	common/BaseApp.h \

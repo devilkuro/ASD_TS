@@ -13,7 +13,7 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 
-package atsoverlay.overlay.ASD_TS;
+package oversim.overlay.ASD_TS;
 
 import oversim.common.BaseOverlay;
 import oversim.common.IOverlay;
