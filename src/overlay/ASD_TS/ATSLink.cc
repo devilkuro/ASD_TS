@@ -57,7 +57,7 @@ void ATSLink::setState(ATSLinkState state){
 }
 ATSLink::ATSLink() {
 	// TODO Auto-generated constructor stub
-
+    refreshFlag = false;
 }
 
 ATSLink::~ATSLink() {

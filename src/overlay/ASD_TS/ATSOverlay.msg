@@ -139,7 +139,8 @@ packet ATSMessage extends BaseOverlayMessage{
  
  packet ATSChildNumIncreaseMessage extends ATSMessage{
  	command = ATS_CHILD_NUM_INCREASE;
- 	unsigned int dataSeq;                          
+ 	unsigned int dataSeq;
+	unsigned int childNum;
  	TransportAddress parentTargetAddress;//标记目标父节点
  }
      

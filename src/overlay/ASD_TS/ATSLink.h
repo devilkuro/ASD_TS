@@ -45,8 +45,11 @@ private:
 	unsigned int dataSeq;
 	//the delay between two ends of this link.
 	double lag;
-
 	ATSLinkState state;
+
+public:
+    unsigned int childNum;// record the child number. used for childLinkList only
+    bool refreshFlag;// record the refresh state. used for childLinkList only
 public:
 
 	ATSLink();
