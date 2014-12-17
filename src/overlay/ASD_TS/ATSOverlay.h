@@ -76,7 +76,7 @@ private:
     //Only used by Server node
     unsigned joinedMemberNum;
     unsigned readyMenberNum;
-    bool isBusy;
+    bool isBusy;    // server is busy
 
     NodeState nodeState;
     //DEBUG
