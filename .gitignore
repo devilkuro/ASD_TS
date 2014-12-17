@@ -237,3 +237,5 @@ simulations/nodes_3d.xml
 *.parameters
 *.exe
 src/common/cbr/areas_nodes_2d_15000.xml
+simulations/results/
+simulations/.tkenvrc
