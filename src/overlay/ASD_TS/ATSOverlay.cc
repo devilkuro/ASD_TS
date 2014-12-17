@@ -1067,11 +1067,15 @@ void ATSOverlay::handleATSChildNumIncreaseMessage(
             for (unsigned int i = 0; i < childLinkList.size(); i++)
             {
                 if (childLinkList[i]->getTargetAddress()
-                        == atsChildNumIncreaseMsg->getSourceAddress())
+                        == atsChildNumIncreaseMsg->getSourceAddress()
+                        &&
+                        childLinkList[i]->getDataSeq() == atsChildNumIncreaseMsg->getDataSeq())
                 {
                     childLinkList[i]->childNum =
                             atsChildNumIncreaseMsg->getChildNum();
                     childLinkList[i]->refreshFlag = true;
+                    // update the lag between child and itself
+                    childLinkList[i]->setLag(simTime().dbl()-atsChildNumIncreaseMsg->getSendTime());
                     break;
                 }
             }
@@ -1118,6 +1122,10 @@ void ATSOverlay::handleATSChildNumIncreaseMessage(
                         childLinkList[i]->refreshFlag = false;
                     }
                 }
+                // send ready message to server
+                // report ready
+                ATSMessage* atsMsg = new ATSMessage();
+                sendATSMessageToUDP(atsMsg, ServerAddress);
             }
             //这里从0开始
         }
@@ -1278,7 +1286,7 @@ void ATSOverlay::handleATSStatisticMessage(ATSStatisticMessage *atsStatisticMsg)
         atsCNIMsg->setChildNum(0);
         atsCNIMsg->setParentTargetAddress(
                 parentLinkList[atsStatisticMsg->getDataSeq()]->getTargetAddress());
-        sendATSMessageToUDP(atsChildNumIncreaseMsg,
+        sendATSMessageToUDP(atsCNIMsg,
                 parentLinkList[atsStatisticMsg->getDataSeq()]->getTargetAddress());
         // report ready
         ATSMessage* atsMsg = new ATSMessage();
