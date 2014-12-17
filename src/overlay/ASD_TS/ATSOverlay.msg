@@ -94,7 +94,9 @@ packet ATSMessage extends BaseOverlayMessage{
      unsigned int freeDegree;
      double dataTimeStamp[];
      TransportAddress parentAddress[];
+     double parentlag[];
      TransportAddress childAddress[];
+     double childlag[];
      unsigned int childDataSeq[];
      unsigned int ChildNum_dataSeq[];//为了得到父节点的孩子数量
  }
@@ -115,6 +117,7 @@ packet ATSMessage extends BaseOverlayMessage{
      unsigned int dataSeq;
      TransportAddress selectedNodeAddress;
      unsigned int selectedDataSeq;
+     double peer2targetLag;
  }
  
  packet ATSInsertResponseMessage extends ATSMessage{

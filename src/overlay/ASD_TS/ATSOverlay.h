@@ -18,7 +18,7 @@
 //util_class
 #include <vector>
 
-#include "GlobalStatistics.h"
+#include <GlobalStatistics.h>
 //baseoverlay_class
 #include "BaseOverlay.h"
 
@@ -123,6 +123,9 @@ private:
     void checkNodeState();
     void updateVisualization();
     unsigned int getDataNumBySeq(unsigned int seq);
+	//通过TransportAddress来取得lag
+	double getLagByAddress(TransportAddress address);
+
 
 public:
     virtual void initializeOverlay(int stage);

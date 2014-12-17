@@ -27,12 +27,12 @@
 #include "TransportAddress.h"
 
 enum ATSLinkState {
-    //ATSLinkState
-    ATS_LINK_INIT = 0,
-    //ATSLinkState
-    ATS_LINK_SELECTED = 1,
-    //ATSLinkState
-    ATS_LINK_CONNECTED = 2
+	//ATSLinkState
+	ATS_LINK_INIT = 0,
+	//ATSLinkState
+	ATS_LINK_SELECTED = 1,
+	//ATSLinkState
+	ATS_LINK_CONNECTED = 2
 };
 
 class ATSLink {
@@ -53,16 +53,19 @@ public:
 	virtual ~ATSLink();
 
 	unsigned int getDataSeq() const;
-    void setDataSeq(unsigned int dataSeq);
+	void setDataSeq(unsigned int dataSeq);
 
-    double getLag() const;
-    void setLag(double lag);
+	double getLag() const;
+	void setLag(double lag);
 
-    TransportAddress getTargetAddress() const;
-    void setTargetAddress(TransportAddress targetAddress);
+	TransportAddress getTargetAddress() const;
+	void setTargetAddress(TransportAddress targetAddress);
 
-    ATSLinkState getState() const;
-    void setState(ATSLinkState state);
+	TransportAddress getLinkOwnerAddress() const;
+	void setSelfAddress(TransportAddress selfAddress);
+
+	ATSLinkState getState() const;
+	void setState(ATSLinkState state);
 };
 
 #endif /* ATSLINK_H_ */
