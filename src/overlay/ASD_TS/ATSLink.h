@@ -61,6 +61,9 @@ public:
     TransportAddress getTargetAddress() const;
     void setTargetAddress(TransportAddress targetAddress);
 
+    TransportAddress getLinkOwnerAddress() const;
+    void setSelfAddress(TransportAddress selfAddress);
+
     ATSLinkState getState() const;
     void setState(ATSLinkState state);
 };

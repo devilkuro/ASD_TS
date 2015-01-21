@@ -58,6 +58,7 @@ private:
     ATSLinkVector childLinkList;
     //各数据流时间戳
     std::vector<double> dataTimeStamp;
+    std::vector<unsigned int> dataHops;
     //网络成员状态
     ATSPeerInfoVector PeerInfoList;
 
@@ -79,6 +80,7 @@ private:
     //DEBUG
     unsigned int targetOverlayTerminalNum;
     unsigned int seq;
+    unsigned int infoCollectNum;
     double startTime;
     double endTime;
     unsigned int forceInsertTimes;
@@ -116,6 +118,7 @@ private:
     void startJoinProcess();
     void checkNodeState();
     void updateVisualization();
+    unsigned int getDataNumBySeq(unsigned int seq);
 
 public:
     virtual void initializeOverlay(int stage);

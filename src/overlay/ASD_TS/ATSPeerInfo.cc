@@ -14,6 +14,7 @@
 // 
 
 #include "ATSPeerInfo.h"
+#include <cmath>
 
 
 unsigned int ATSPeerInfo::getFreeResource() const {
@@ -21,7 +22,11 @@ unsigned int ATSPeerInfo::getFreeResource() const {
 }
 
 TransportAddress ATSPeerInfo::getAddress() const {
-	return address;
+    return address;
+}
+
+double ATSPeerInfo::getLag() const {
+    return lag;
 }
 
 bool ATSPeerInfo::getIsJoined() const{
@@ -135,6 +140,11 @@ unsigned int ATSPeerInfo::getChildIndexByDataSeq(unsigned int dataSeq){
 ATSPeerInfo::ATSPeerInfo() {
 	// TODO Auto-generated constructor stub
 
+}
+
+double ATSPeerInfo::result2score(double result) {
+    double PI_FIX = 3.14159265 + 0.01; // used to make score bigger than 0.
+    return PI_FIX - atan(result);
 }
 
 ATSPeerInfo::~ATSPeerInfo() {

@@ -39,7 +39,15 @@ void ATSLink::setLag(double lag) {
 }
 
 void ATSLink::setTargetAddress(TransportAddress targetAddress) {
-	this->targetAddress = targetAddress;
+    this->targetAddress = targetAddress;
+}
+
+TransportAddress ATSLink::getLinkOwnerAddress() const {
+    return targetAddress;
+}
+
+void ATSLink::setSelfAddress(TransportAddress selfAddress) {
+    this->selfAddress = selfAddress;
 }
 
 void ATSLink::setState(ATSLinkState state){

@@ -56,7 +56,8 @@ public:
 
     TransportAddress getChildAddressByDataSeq(unsigned int dataSeq);
     unsigned int getChildIndexByDataSeq(unsigned int dataSeq);
-
+private:
+    double result2score(double result);
 };
 
 #endif /* ATSPEERINFO_H_ */

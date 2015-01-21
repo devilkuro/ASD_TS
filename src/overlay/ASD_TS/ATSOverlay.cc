@@ -21,7 +21,7 @@ Define_Module( ATSOverlay);
 
 #define BIGBIT (1 << 24)
 
-static const char *newArrows[] = { "m=m,50,50,50,50;ls=yellow,2",
+static const char *newArrows[] = { "m=m,50,50,50,50;ls=orange,2",
                                 "m=m,50,50,50,50;ls=magenta,3",
                                 "m=m,50,50,50,50;ls=red,4",
                                 "m=m,50,50,50,50;ls=orange,5",
@@ -45,6 +45,7 @@ void ATSOverlay::initializeOverlay(int stage)
     outputDegree = par("outputDegree");
     targetOverlayTerminalNum = par("targetOverlayTerminalNum");
     seq = par("seq");
+    infoCollectNum = par("infoCollectNum");
     freeDegree = outputDegree;
     serverFreeDegree = outputDegree;
 
@@ -60,7 +61,7 @@ void ATSOverlay::initializeOverlay(int stage)
     getParentModule()->getParentModule()->getDisplayString().setTagArg("i", 0, "device/pc_vs");
     getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 0, "block/circle_vs");
     if(nodeAddress!=ServerAddress){
-        ATSQueryMessage* atsQueryMsg = new ATSQueryMessage();
+        ATSQueryMessage* atsQueryMsg = new ATSQueryMessage("atsQueryMsg");
         sendATSMessageToUDP(atsQueryMsg,ServerAddress);
     }else{
         getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "yellow");
@@ -86,12 +87,62 @@ void ATSOverlay::handleAppMessage(cMessage* msg)
 void ATSOverlay::handleTimerEvent(cMessage* msg)
 {
     if(msg){
-        delete(msg);
+        delete (msg);
+    }
+}
+
+unsigned int ATSOverlay::getDataNumBySeq(unsigned int seq) {
+    unsigned int dataNum = 0;
+    if(childLinkList.size() == 0){
+        return 0;
+    }
+    for(unsigned int i = 0; i < childLinkList.size(); i++){
+        if(childLinkList[i]->getDataSeq() == seq){
+            dataNum++;
+        }
     }
 }
 void ATSOverlay::finishOverlay()
 {
 
+	if (nodeState == NodeState_Joined&&nodeAddress!=ServerAddress)
+	{
+		double maxDataTimeStamp = 0;
+		for (unsigned int i = 0; i < dataTimeStamp.size(); i++)
+		{
+			if (i == 0){
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:dataTimeStamp0", dataTimeStamp[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:dataHops0", dataHops[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:dataDataNum0", getDataNumBySeq(i));
+			}
+			else if (i == 1){
+				globalStatistics->recordOutVector(
+						"Fanjing:ATS:dataTimeStamp1", dataTimeStamp[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:dataHops1", dataHops[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:dataDataNum1", getDataNumBySeq(i));
+			}
+			else if (i == 2){
+				globalStatistics->recordOutVector(
+						"Fanjing:ATS:dataTimeStamp2", dataTimeStamp[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:dataHops2", dataHops[i]);
+                globalStatistics->recordOutVector(
+                        "Fanjing:ATS:dataDataNum2", getDataNumBySeq(i));
+			}
+			maxDataTimeStamp
+					= maxDataTimeStamp > dataTimeStamp[i] ? maxDataTimeStamp
+							: dataTimeStamp[i];
+		}
+		globalStatistics->recordOutVector("Fanjing:ATS:maxdataTimeStamp",
+				maxDataTimeStamp);
+		globalStatistics->recordOutVector("Fanjing:ATS:JoinTime", endTime
+				- startTime);
+	}
 }
 
 // Private functions
@@ -140,7 +191,7 @@ void ATSOverlay::handleATSMessgae(ATSMessage *atsMsg)
 					}
 
 				}
-				readyMenberNum = 0;
+				readyMenberNum = 0; // fixme may error here check it
 			}
 		} else {
 			for (unsigned int i = 0; i < childLinkList.size(); i++) {
@@ -150,6 +201,7 @@ void ATSOverlay::handleATSMessgae(ATSMessage *atsMsg)
 				}
 			}
 
+			// fixme statistics process may move to finishOVerlay function, check it.
 			double maxDataTimeStamp = 0;
 			for (unsigned int i = 0; i < dataTimeStamp.size(); i++) {
 				if (i == 0)
@@ -321,7 +373,7 @@ void ATSOverlay::sendATSMessageToUDP(ATSMessage* atsMsg,TransportAddress address
 //Send ATSQueryResponseMessage to certain Address
 void ATSOverlay::sendATSQueryResponseMessage(TransportAddress address){
     isBusy=true;
-    ATSQueryResponseMessage* atsQueryResponseMsg =new ATSQueryResponseMessage();
+    ATSQueryResponseMessage* atsQueryResponseMsg =new ATSQueryResponseMessage("atsQueryResponseMsg");
     int mSize = 0;
     for(unsigned int i=0;i<PeerInfoList.size();i++){
         if(PeerInfoList[i]->getIsJoined())
@@ -347,7 +399,7 @@ void ATSOverlay::handleATSQueryResponseMessage(ATSQueryResponseMessage *atsQuery
     }else{
         memberNum = atsQueryResponseMsg->getMemberAddressArraySize();
         for(unsigned int i=0;i<atsQueryResponseMsg->getMemberAddressArraySize();i++){
-            ATSJoinEvalMessage* atsJoinEvalMsg = new ATSJoinEvalMessage();
+            ATSJoinEvalMessage* atsJoinEvalMsg = new ATSJoinEvalMessage("atsJoinEvalMsg");
             sendATSMessageToUDP(atsJoinEvalMsg,atsQueryResponseMsg->getMemberAddress(i));
         }
     }
@@ -357,7 +409,7 @@ void ATSOverlay::handleATSJoinEvalMessage(ATSJoinEvalMessage *atsJoinEvalMsg)
 {
     EV<< "ATSOverlay::handleATSJoinEvalMessage@Time" <<simTime()<<"\n";
     EV<< "\tdataTimeStamp.size()" <<dataTimeStamp.size()<<"\n";
-    ATSJoinEvalResponseMessage* atsJoinEvalResponseMsg = new ATSJoinEvalResponseMessage();
+    ATSJoinEvalResponseMessage* atsJoinEvalResponseMsg = new ATSJoinEvalResponseMessage("atsJoinEvalResponseMsg");
     atsJoinEvalResponseMsg->setFreeDegree(freeDegree);
     atsJoinEvalResponseMsg->setDataTimeStampArraySize(dataTimeStamp.size());
     for(unsigned int i=0;i<dataTimeStamp.size();i++){
@@ -385,6 +437,7 @@ void ATSOverlay::startJoinProcess(){
         parentLinkList.push_back(atsLink);
         double timeStamp = 0;
         dataTimeStamp.push_back(timeStamp);
+        dataHops.push_back(0);
     }
     EV<< "\tdataTimeStamp.size()" <<dataTimeStamp.size()<<"\n";
     for(unsigned int i = 0;i<inputDegree;i++){
@@ -395,7 +448,7 @@ void ATSOverlay::startJoinProcess(){
         //Use server free resource
         if(serverFreeDegree>0){
             EV<< "ATSOverlay::Server\n";
-            ATSJoinMessage* atsJoinMsg = new ATSJoinMessage();
+            ATSJoinMessage* atsJoinMsg = new ATSJoinMessage("atsJoinMsg_S");
             atsJoinMsg->setDataSeq(i);
             parentLinkList[i]->setTargetAddress(ServerAddress);
             parentLinkList[i]->setState(ATS_LINK_SELECTED);
@@ -446,7 +499,7 @@ void ATSOverlay::startJoinProcess(){
             }
             if(maxJoinScore>0&&maxJoinScore>=maxInsertScore&&maxJoinScore>=maxSwitchScore){
                 EV<< "ATSOverlay::Join\n";
-                ATSJoinMessage* atsJoinMsg = new ATSJoinMessage();
+                ATSJoinMessage* atsJoinMsg = new ATSJoinMessage("atsJoinMsg_1");
                 atsJoinMsg->setDataSeq(i);
                 parentLinkList[i]->setTargetAddress(PeerInfoList[maxJoinNum]->getAddress());
                 parentLinkList[i]->setState(ATS_LINK_SELECTED);
@@ -455,7 +508,7 @@ void ATSOverlay::startJoinProcess(){
             }else if(maxInsertScore>0&&maxInsertScore>=maxJoinScore&&maxInsertScore>=maxSwitchScore){
                 EV<< "ATSOverlay::Insert\n";
                 //Msg to peer[?]'s parent and be its child node
-                ATSInsertMessage *insertMsgPPC = new ATSInsertMessage();
+                ATSInsertMessage *insertMsgPPC = new ATSInsertMessage("insertMsgPPC_3");
                 insertMsgPPC->setBeChildNode(true);
                 insertMsgPPC->setDataSeq(i);
                 insertMsgPPC->setSelectedNodeAddress(PeerInfoList[maxInsertNum]->getAddress());
@@ -466,7 +519,7 @@ void ATSOverlay::startJoinProcess(){
                 sendATSMessageToUDP(insertMsgPPC,PeerInfoList[maxInsertNum]->parentlinklist[i]->getTargetAddress());
 
                 //Msg to peer[?] and be its parent node
-                ATSInsertMessage *insertMsgPC = new ATSInsertMessage();
+                ATSInsertMessage *insertMsgPC = new ATSInsertMessage("insertMsgPC_3");
                 insertMsgPC->setBeChildNode(false);
                 insertMsgPC->setDataSeq(i);
                 insertMsgPC->setSelectedNodeAddress(PeerInfoList[maxInsertNum]->parentlinklist[i]->getTargetAddress());
@@ -503,7 +556,7 @@ void ATSOverlay::startJoinProcess(){
                 TransportAddress pcAddress = PeerInfoList[maxSwitchNum]->getChildAddressByDataSeq(seq1);
                 EV<< "ATSOverlay::Switch:pcAddress:"<<pcAddress<<"\n";
                 //Msg to peer[?]'s parent to replace peer[?] and be its child to get seq1.
-                ATSInsertMessage* insertMsgPPC = new ATSInsertMessage();
+                ATSInsertMessage* insertMsgPPC = new ATSInsertMessage("insertMsgPPC_2");
                 insertMsgPPC->setBeChildNode(true);
                 insertMsgPPC->setDataSeq(seq1);
                 insertMsgPPC->setSelectedNodeAddress(pAddress);
@@ -514,7 +567,7 @@ void ATSOverlay::startJoinProcess(){
                 sendATSMessageToUDP(insertMsgPPC,ppAddress);
 
                 //Msg to peer[?] to replace one of its child which get seq1 from peer[?] to get seq2
-                ATSInsertMessage* insertMsgPC = new ATSInsertMessage();
+                ATSInsertMessage* insertMsgPC = new ATSInsertMessage("insertMsgPC_2");
                 insertMsgPC->setBeChildNode(true);
                 insertMsgPC->setDataSeq(seq2);
                 insertMsgPC->setSelectedNodeAddress(pcAddress);
@@ -525,7 +578,7 @@ void ATSOverlay::startJoinProcess(){
                 sendATSMessageToUDP(insertMsgPC,pAddress);
 
                 //Msg to peer[?] to replace its parents to deliver seq1 to peer[?]
-                ATSInsertMessage* insertMsgPP = new ATSInsertMessage();
+                ATSInsertMessage* insertMsgPP = new ATSInsertMessage("insertMsgPP_2");
                 insertMsgPP->setBeChildNode(false);
                 insertMsgPP->setDataSeq(seq1);
                 insertMsgPP->setSelectedNodeAddress(ppAddress);
@@ -540,7 +593,7 @@ void ATSOverlay::startJoinProcess(){
                 sendATSMessageToUDP(insertMsgPP,pAddress);
 
                 //Msg to one of peer[?]'s child to replace peer[?] to deliver seq1 to this child
-                ATSInsertMessage* insertMsgPCP = new ATSInsertMessage();
+                ATSInsertMessage* insertMsgPCP = new ATSInsertMessage("insertMsgPCP_2");
                 insertMsgPCP->setBeChildNode(false);
                 insertMsgPCP->setDataSeq(seq1);
                 insertMsgPCP->setSelectedNodeAddress(pAddress);
@@ -560,7 +613,7 @@ void ATSOverlay::startJoinProcess(){
                 PeerInfoList[maxSwitchNum]->childlinklist[childSeq]->setDataSeq(seq2);	//Important!
             }else{
                 //Msg to peer[?]'s parent and be its child node
-                ATSInsertMessage *insertMsgPPC = new ATSInsertMessage();
+                ATSInsertMessage *insertMsgPPC = new ATSInsertMessage("insertMsgPPC_4");
                 insertMsgPPC->setBeChildNode(true);
                 insertMsgPPC->setDataSeq(i);
                 insertMsgPPC->setSelectedNodeAddress(PeerInfoList[0]->getAddress());
@@ -571,7 +624,7 @@ void ATSOverlay::startJoinProcess(){
                 sendATSMessageToUDP(insertMsgPPC,PeerInfoList[0]->parentlinklist[i]->getTargetAddress());
 
                 //Msg to peer[?] and be its parent node
-                ATSInsertMessage *insertMsgPC = new ATSInsertMessage();
+                ATSInsertMessage *insertMsgPC = new ATSInsertMessage("insertMsgPC_4");
                 insertMsgPC->setBeChildNode(false);
                 insertMsgPC->setDataSeq(i);
                 insertMsgPC->setSelectedNodeAddress(PeerInfoList[0]->parentlinklist[i]->getTargetAddress());
@@ -595,7 +648,7 @@ void ATSOverlay::startJoinProcess(){
 }
 void ATSOverlay::handleATSJoinEvalResponseMessage(ATSJoinEvalResponseMessage *atsJoinEvalResponseMsg)
 {
-    if (nodeState != NodeState_Joining) {
+    if (nodeState != NodeState_Joining&&nodeState!=NodeState_Joined) {
         EV<< "ATSOverlay::handleATSJoinEvalResponseMessage@Time" <<simTime()<<"\n";
         EV<< "\tdataTimeStamp.size()" <<atsJoinEvalResponseMsg->getDataTimeStampArraySize()<<"\n";
         ATSPeerInfo* atsPeerInfo = new ATSPeerInfo();
@@ -619,7 +672,7 @@ void ATSOverlay::handleATSJoinEvalResponseMessage(ATSJoinEvalResponseMessage *at
         }
         PeerInfoList.push_back(atsPeerInfo);
         //To decide whether starting the join process
-        if(PeerInfoList.size()>=20||PeerInfoList.size()>=memberNum) {
+        if(PeerInfoList.size()>=infoCollectNum||PeerInfoList.size()>=memberNum) {
             startJoinProcess();
             nodeState=NodeState_Joining;
         }
@@ -636,7 +689,7 @@ void ATSOverlay::handleATSJoinMessage(ATSJoinMessage *atsJoinMsg)
         childLinkList.push_back(childLink);
         freeDegree=outputDegree-childLinkList.size();
 
-        ATSJoinResponseMessage* atsJoinResponseMsg = new ATSJoinResponseMessage();
+        ATSJoinResponseMessage* atsJoinResponseMsg = new ATSJoinResponseMessage("atsJoinResponseMsg");
         atsJoinResponseMsg->setDataSeq(atsJoinMsg->getDataSeq());
         sendATSMessageToUDP(atsJoinResponseMsg,atsJoinMsg->getSourceAddress());
     }else{
@@ -668,7 +721,7 @@ void ATSOverlay::checkNodeState(){
         }
     }
     endTime = simTime()/SECOND;
-    ATSJoinSuccessMessage* atsJoinSuccessMsg = new ATSJoinSuccessMessage();
+    ATSJoinSuccessMessage* atsJoinSuccessMsg = new ATSJoinSuccessMessage("atsJoinSuccessMsg");
     sendATSMessageToUDP(atsJoinSuccessMsg, ServerAddress);
     nodeState = NodeState_Joined;
     getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "green");
@@ -682,7 +735,7 @@ void ATSOverlay::handleATSInsertMessage(ATSInsertMessage *atsInsertMsg)
                 childLinkList[i]->setDataSeq(atsInsertMsg->getDataSeq());
                 childLinkList[i]->setTargetAddress(atsInsertMsg->getSourceAddress());
 
-                ATSInsertResponseMessage* atsInsertResponseMsg = new ATSInsertResponseMessage();
+                ATSInsertResponseMessage* atsInsertResponseMsg = new ATSInsertResponseMessage("atsInsertResponseMsg");
                 atsInsertResponseMsg->setBeChildNode(!atsInsertMsg->getBeChildNode());
                 atsInsertResponseMsg->setDataSeq(atsInsertMsg->getDataSeq());
                 sendATSMessageToUDP(atsInsertResponseMsg,atsInsertMsg->getSourceAddress());
@@ -693,7 +746,7 @@ void ATSOverlay::handleATSInsertMessage(ATSInsertMessage *atsInsertMsg)
         if(parentLinkList[atsInsertMsg->getSelectedDataSeq()]->getTargetAddress()==atsInsertMsg->getSelectedNodeAddress()){
             parentLinkList[atsInsertMsg->getSelectedDataSeq()]->setTargetAddress(atsInsertMsg->getSourceAddress());
 
-            ATSInsertResponseMessage* atsInsertResponseMsg = new ATSInsertResponseMessage();
+            ATSInsertResponseMessage* atsInsertResponseMsg = new ATSInsertResponseMessage("atsInsertResponseMsg");
             atsInsertResponseMsg->setBeChildNode(!atsInsertMsg->getBeChildNode());
             atsInsertResponseMsg->setDataSeq(atsInsertMsg->getDataSeq());
             sendATSMessageToUDP(atsInsertResponseMsg,atsInsertMsg->getSourceAddress());
@@ -729,11 +782,21 @@ void ATSOverlay::handleATSJoinSuccessMessage(ATSJoinSuccessMessage *atsJoinSucce
         }
     }
     for(unsigned int i=0;i<childLinkList.size();i++){
-        ATSStatisticMessage* atsStatisticMsg = new ATSStatisticMessage();
+        ATSStatisticMessage* atsStatisticMsg = new ATSStatisticMessage("atsStatisticMsg");
         atsStatisticMsg->setCreateTime(simTime()/SECOND);
         atsStatisticMsg->setDataSeq(childLinkList[i]->getDataSeq());
         atsStatisticMsg->setHop(0);
         sendATSMessageToUDP(atsStatisticMsg,childLinkList[i]->getTargetAddress());
+    }
+    // fixme this is dumplicated with handleMsg function, check it..
+    if(joinedMemberNum==targetOverlayTerminalNum-1){
+        ATSMessage* atsMsg = new ATSMessage("atsMsg");
+        for (unsigned int i = 0; i < childLinkList.size(); i++) {
+            if (0 == childLinkList[i]->getDataSeq()) {
+                sendATSMessageToUDP(atsMsg->dup(),
+                                    childLinkList[i]->getTargetAddress());
+            }
+        }
     }
 }
 
@@ -741,7 +804,9 @@ void ATSOverlay::handleATSStatisticMessage(ATSStatisticMessage *atsStatisticMsg)
 {
     parentLinkList[atsStatisticMsg->getDataSeq()]->setLag(simTime()/SECOND-atsStatisticMsg->getSendTime());
     dataTimeStamp[atsStatisticMsg->getDataSeq()]=simTime()/SECOND-atsStatisticMsg->getCreateTime();
+    dataHops[atsStatisticMsg->getDataSeq()]=atsStatisticMsg->getHop()+1;
 
+    atsStatisticMsg->setHop(dataHops[atsStatisticMsg->getDataSeq()]);
     getParentModule()->getParentModule()->getDisplayString().setTagArg("t",0,dataTimeStamp[seq]*1000);
     for(unsigned int i=0;i<childLinkList.size();i++){
         if(atsStatisticMsg->getDataSeq()==childLinkList[i]->getDataSeq()){
@@ -767,6 +832,9 @@ void ATSOverlay::updateVisualization(){
 }
 
 
+
+
+
 ATSOverlay::ATSOverlay()
 {
     // TODO Auto-generated constructor stub
@@ -788,5 +856,12 @@ ATSOverlay::~ATSOverlay()
         delete PeerInfoList[i];
     }
     PeerInfoList.clear();
+    dataTimeStamp.clear();
+    dataHops.clear();
+}
+clear();
+    dataTimeStamp.clear();
+    dataHops.clear();
+}
     dataTimeStamp.clear();
 }
