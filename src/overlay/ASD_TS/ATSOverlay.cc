@@ -905,9 +905,3 @@ ATSOverlay::~ATSOverlay() {
     dataTimeStamp.clear();
     dataHops.clear();
 }
-clear();
-dataTimeStamp.clear();
-dataHops.clear();
-}
-dataTimeStamp.clear();
-}
