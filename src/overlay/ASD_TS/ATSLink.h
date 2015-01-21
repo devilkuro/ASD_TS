@@ -37,22 +37,22 @@ enum ATSLinkState {
 
 class ATSLink {
 private:
-	//the address of the target node.
-	TransportAddress targetAddress;
-	//the address of the owner.
-	TransportAddress selfAddress;
-	//the data sequence of this link.
-	unsigned int dataSeq;
-	//the delay between two ends of this link.
-	double lag;
+    //the address of the target node.
+    TransportAddress targetAddress;
+    //the address of the owner.
+    TransportAddress selfAddress;
+    //the data sequence of this link.
+    unsigned int dataSeq;
+    //the delay between two ends of this link.
+    double lag;
 
-	ATSLinkState state;
+    ATSLinkState state;
 public:
 
-	ATSLink();
-	virtual ~ATSLink();
+    ATSLink();
+    virtual ~ATSLink();
 
-	unsigned int getDataSeq() const;
+    unsigned int getDataSeq() const;
     void setDataSeq(unsigned int dataSeq);
 
     double getLag() const;

@@ -21,14 +21,13 @@
 #include "TransportAddress.h"
 #include "ATSLink.h"
 
-class ATSPeerInfo
-{
+class ATSPeerInfo {
 private:
-	TransportAddress address;
-	unsigned int freeResource;
-	double lag;
-	//Only used by Server Node
-	bool isJoined;
+    TransportAddress address;
+    unsigned int freeResource;
+    double lag;
+    //Only used by Server Node
+    bool isJoined;
 
 public:
     std::vector<ATSLink*> parentlinklist;
@@ -36,10 +35,10 @@ public:
     std::vector<double> dataTimeStamp;
 
 public:
-	ATSPeerInfo();
-	virtual ~ATSPeerInfo();
+    ATSPeerInfo();
+    virtual ~ATSPeerInfo();
 
-	unsigned int getFreeResource() const;
+    unsigned int getFreeResource() const;
     void setFreeResource(unsigned int freeResource);
     TransportAddress getAddress() const;
     void setAddress(TransportAddress address);
@@ -49,7 +48,8 @@ public:
     void setIsJoined(bool isJoined);
 
     double getJoinScoreByDataSeq(unsigned int dataSeq);
-    double getSwitchScoreByDataSeq(unsigned int dataSeq1, unsigned int dataSeq2);
+    double getSwitchScoreByDataSeq(unsigned int dataSeq1,
+            unsigned int dataSeq2);
     double getInsertScoreByDataSeq(unsigned int dataSeq);
     double getDataRatioByDataSeq(unsigned int dataSeq);
     double getDataScoreByDataSeq(unsigned int dataSeq);

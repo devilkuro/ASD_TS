@@ -28,19 +28,16 @@
 #include "ATSPeerInfo.h"
 #include "ATSLink.h"
 
-
 class ATSOverlay: public BaseOverlay
 
 {
 private:
     simtime_t SECOND;
-    enum NodeType
-    {
+    enum NodeType {
         Server = 0, Peer = 1
     };
 
-    enum NodeState
-    {
+    enum NodeState {
         NodeState_Init = 0,
         NodeState_Query = 1,
         NodeState_Wait = 2,
@@ -91,19 +88,23 @@ private:
 
     void handleATSQueryMessage(ATSQueryMessage* atsQueryMsg);
 
-    void handleATSQueryResponseMessage(ATSQueryResponseMessage* atsQueryResponseMsg);
+    void handleATSQueryResponseMessage(
+            ATSQueryResponseMessage* atsQueryResponseMsg);
 
     void handleATSJoinEvalMessage(ATSJoinEvalMessage* atsJoinEvalMsg);
 
-    void handleATSJoinEvalResponseMessage(ATSJoinEvalResponseMessage* atsJoinEvalResponseMsg);
+    void handleATSJoinEvalResponseMessage(
+            ATSJoinEvalResponseMessage* atsJoinEvalResponseMsg);
 
     void handleATSJoinMessage(ATSJoinMessage* atsJoinMsg);
 
-    void handleATSJoinResponseMessage(ATSJoinResponseMessage* atsJoinResponseMsg);
+    void handleATSJoinResponseMessage(
+            ATSJoinResponseMessage* atsJoinResponseMsg);
 
     void handleATSInsertMessage(ATSInsertMessage* atsInsertMsg);
 
-    void handleATSInsertResponseMessage(ATSInsertResponseMessage* atsInsertResponseMsg);
+    void handleATSInsertResponseMessage(
+            ATSInsertResponseMessage* atsInsertResponseMsg);
 
     void handleATSJoinSuccessMessage(ATSJoinSuccessMessage* atsJoinSuccessMsg);
 
@@ -114,7 +115,7 @@ private:
     void initializeATSMessage(ATSMessage* atsMsg);
     unsigned int calculateATSMessageBitLength(ATSMessage* atsMsg);
     void setATSMessageBitLength(ATSMessage* atsMsg);
-    void sendATSMessageToUDP(ATSMessage* atsMsg,TransportAddress address);
+    void sendATSMessageToUDP(ATSMessage* atsMsg, TransportAddress address);
     void startJoinProcess();
     void checkNodeState();
     void updateVisualization();

@@ -16,10 +16,10 @@
 #include "ATSPeerManager.h"
 
 ATSPeerManager::ATSPeerManager() {
-	// TODO Auto-generated constructor stub
+    // TODO Auto-generated constructor stub
 
 }
 
 ATSPeerManager::~ATSPeerManager() {
-	// TODO Auto-generated destructor stub
+    // TODO Auto-generated destructor stub
 }

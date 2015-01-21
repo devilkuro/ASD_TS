@@ -16,26 +16,26 @@
 #include "ATSLink.h"
 
 unsigned int ATSLink::getDataSeq() const {
-	return dataSeq;
+    return dataSeq;
 }
 
 double ATSLink::getLag() const {
-	return lag;
+    return lag;
 }
 
 TransportAddress ATSLink::getTargetAddress() const {
-	return targetAddress;
+    return targetAddress;
 }
 
 ATSLinkState ATSLink::getState() const {
     return state;
 }
 void ATSLink::setDataSeq(unsigned int dataSeq) {
-	this->dataSeq = dataSeq;
+    this->dataSeq = dataSeq;
 }
 
 void ATSLink::setLag(double lag) {
-	this->lag = lag;
+    this->lag = lag;
 }
 
 void ATSLink::setTargetAddress(TransportAddress targetAddress) {
@@ -50,14 +50,14 @@ void ATSLink::setSelfAddress(TransportAddress selfAddress) {
     this->selfAddress = selfAddress;
 }
 
-void ATSLink::setState(ATSLinkState state){
+void ATSLink::setState(ATSLinkState state) {
     this->state = state;
 }
 ATSLink::ATSLink() {
-	// TODO Auto-generated constructor stub
+    // TODO Auto-generated constructor stub
 
 }
 
 ATSLink::~ATSLink() {
-	// TODO Auto-generated destructor stub
+    // TODO Auto-generated destructor stub
 }

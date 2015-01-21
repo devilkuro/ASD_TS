@@ -16,9 +16,8 @@
 #include "ATSPeerInfo.h"
 #include <cmath>
 
-
 unsigned int ATSPeerInfo::getFreeResource() const {
-	return freeResource;
+    return freeResource;
 }
 
 TransportAddress ATSPeerInfo::getAddress() const {
@@ -29,49 +28,50 @@ double ATSPeerInfo::getLag() const {
     return lag;
 }
 
-bool ATSPeerInfo::getIsJoined() const{
-	return isJoined;
+bool ATSPeerInfo::getIsJoined() const {
+    return isJoined;
 }
 
 void ATSPeerInfo::setFreeResource(unsigned int freeResource) {
-	this->freeResource = freeResource;
+    this->freeResource = freeResource;
 }
 
 void ATSPeerInfo::setAddress(TransportAddress address) {
-	this->address = address;
+    this->address = address;
 }
 
-void ATSPeerInfo::setLag(double lag){
-	this->lag = lag;
+void ATSPeerInfo::setLag(double lag) {
+    this->lag = lag;
 }
 
-void ATSPeerInfo::setIsJoined(bool isJoined){
+void ATSPeerInfo::setIsJoined(bool isJoined) {
     this->isJoined = isJoined;
 }
 
-double ATSPeerInfo::getJoinScoreByDataSeq(unsigned int dataSeq){
-    if(freeResource>0){
-		EV<< "JoinScore:" <<getDataScoreByDataSeq(dataSeq)/(dataTimeStamp[dataSeq]+lag)<<"\n";
-        return getDataScoreByDataSeq(dataSeq)/(dataTimeStamp[dataSeq]+lag);
-    }else{
-		EV<< "JoinScore:" <<0<<"\n";
+double ATSPeerInfo::getJoinScoreByDataSeq(unsigned int dataSeq) {
+    if (freeResource > 0) {
+        EV << "JoinScore:"
+                  << getDataScoreByDataSeq(dataSeq)
+                          / (dataTimeStamp[dataSeq] + lag) << "\n";
+        return getDataScoreByDataSeq(dataSeq) / (dataTimeStamp[dataSeq] + lag);
+    } else {
+        EV << "JoinScore:" << 0 << "\n";
         return 0;
     }
 }
 
 double ATSPeerInfo::getInsertScoreByDataSeq(unsigned int dataSeq) {
-	if (freeResource > 0||getDataScoreByDataSeq(dataSeq)>0) {
-		EV<< "InsertScore:" <<0<<"\n";
-		return 0;
-	} else {
-		EV<< "InsertScore:" <<0.2 / (dataTimeStamp[dataSeq] + lag)<<"\n";
-		return 0.2 / (dataTimeStamp[dataSeq] + lag);
-	}
+    if (freeResource > 0 || getDataScoreByDataSeq(dataSeq) > 0) {
+        EV << "InsertScore:" << 0 << "\n";
+        return 0;
+    } else {
+        EV << "InsertScore:" << 0.2 / (dataTimeStamp[dataSeq] + lag) << "\n";
+        return 0.2 / (dataTimeStamp[dataSeq] + lag);
+    }
 }
 
 double ATSPeerInfo::getSwitchScoreByDataSeq(unsigned int dataSeq1,
-                                            unsigned int dataSeq2)
-{
+        unsigned int dataSeq2) {
     bool hasDataSeq1Child = false;
     bool hasDataSeq2Child = false;
     for (unsigned int i = 0; i < childlinklist.size(); i++) {
@@ -83,62 +83,62 @@ double ATSPeerInfo::getSwitchScoreByDataSeq(unsigned int dataSeq1,
         }
     }
     if (hasDataSeq1Child && hasDataSeq2Child) {
-        double result1 =  2/(dataTimeStamp[dataSeq1]+lag);
-        double result2 =  2/(dataTimeStamp[dataSeq2]+lag);
+        double result1 = 2 / (dataTimeStamp[dataSeq1] + lag);
+        double result2 = 2 / (dataTimeStamp[dataSeq2] + lag);
 
-		EV<< "SwitchScore:" <<(result1+result2)/2<<"\n";
-        return (result1+result2)/2;
+        EV << "SwitchScore:" << (result1 + result2) / 2 << "\n";
+        return (result1 + result2) / 2;
     } else {
-		EV<< "SwitchScore:" <<0<<"\n";
+        EV << "SwitchScore:" << 0 << "\n";
         return 0;
     }
 }
-double ATSPeerInfo::getDataScoreByDataSeq(unsigned int dataSeq){
+double ATSPeerInfo::getDataScoreByDataSeq(unsigned int dataSeq) {
     unsigned int dataNum = 0;
-    if(childlinklist.size()==0){
-    	return 1;
+    if (childlinklist.size() == 0) {
+        return 1;
     }
-    for(unsigned int i=0;i<childlinklist.size();i++){
-        if(childlinklist[i]->getDataSeq()==dataSeq){
+    for (unsigned int i = 0; i < childlinklist.size(); i++) {
+        if (childlinklist[i]->getDataSeq() == dataSeq) {
             dataNum++;
         }
     }
-    return dataNum/childlinklist.size();
+    return dataNum / childlinklist.size();
 }
-double ATSPeerInfo::getDataRatioByDataSeq(unsigned int dataSeq){
+double ATSPeerInfo::getDataRatioByDataSeq(unsigned int dataSeq) {
     unsigned int dataNum = 0;
-    if(childlinklist.size()==0){
-    	return 1;
+    if (childlinklist.size() == 0) {
+        return 1;
     }
-    for(unsigned int i=0;i<childlinklist.size();i++){
-        if(childlinklist[i]->getDataSeq()==dataSeq){
+    for (unsigned int i = 0; i < childlinklist.size(); i++) {
+        if (childlinklist[i]->getDataSeq() == dataSeq) {
             dataNum++;
         }
     }
-    return dataNum/childlinklist.size();
+    return dataNum / childlinklist.size();
 }
 
-TransportAddress ATSPeerInfo::getChildAddressByDataSeq(unsigned int dataSeq){
-    for(unsigned int i=0;i<childlinklist.size();i++){
-        if(childlinklist[i]->getDataSeq()==dataSeq){
+TransportAddress ATSPeerInfo::getChildAddressByDataSeq(unsigned int dataSeq) {
+    for (unsigned int i = 0; i < childlinklist.size(); i++) {
+        if (childlinklist[i]->getDataSeq() == dataSeq) {
             return childlinklist[i]->getTargetAddress();
         }
     }
-    EV<<"ATSPeerInfo::nonChild\n";
+    EV << "ATSPeerInfo::nonChild\n";
     return address;
 }
 
-unsigned int ATSPeerInfo::getChildIndexByDataSeq(unsigned int dataSeq){
-    for(unsigned int i=0;i<childlinklist.size();i++){
-        if(childlinklist[i]->getDataSeq()==dataSeq){
+unsigned int ATSPeerInfo::getChildIndexByDataSeq(unsigned int dataSeq) {
+    for (unsigned int i = 0; i < childlinklist.size(); i++) {
+        if (childlinklist[i]->getDataSeq() == dataSeq) {
             return i;
         }
     }
-    EV<<"ATSPeerInfo::nonChild\n";
+    EV << "ATSPeerInfo::nonChild\n";
     return 0;
 }
 ATSPeerInfo::ATSPeerInfo() {
-	// TODO Auto-generated constructor stub
+    // TODO Auto-generated constructor stub
 
 }
 
@@ -148,12 +148,12 @@ double ATSPeerInfo::result2score(double result) {
 }
 
 ATSPeerInfo::~ATSPeerInfo() {
-	// TODO Auto-generated destructor stub
-    for(unsigned int i=0;i<parentlinklist.size();i++){
+    // TODO Auto-generated destructor stub
+    for (unsigned int i = 0; i < parentlinklist.size(); i++) {
         delete parentlinklist[i];
     }
     parentlinklist.clear();
-    for(unsigned int i=0;i<childlinklist.size();i++){
+    for (unsigned int i = 0; i < childlinklist.size(); i++) {
         delete childlinklist[i];
     }
     childlinklist.clear();
