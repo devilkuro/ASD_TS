@@ -28,19 +28,16 @@
 #include "ATSPeerInfo.h"
 #include "ATSLink.h"
 
-
-class ATSOverlay: public BaseOverlay
+class ATSOverlay : public BaseOverlay
 
 {
 private:
     simtime_t SECOND;
-    enum NodeType
-    {
+    enum NodeType {
         Server = 0, Peer = 1
     };
 
-    enum NodeState
-    {
+    enum NodeState {
         NodeState_Init = 0,
         NodeState_Query = 1,
         NodeState_Wait = 2,
@@ -69,8 +66,9 @@ private:
     unsigned int outputDegree;
     unsigned int freeDegree;
     unsigned int serverFreeDegree;
+    double serverLag;
     //记录每个支流的孩子节点数量
-    std::vector<unsigned int> ChildNum_dataSeq;//数组大小等于inputDegree
+    std::vector<unsigned int> ChildNum_dataSeq; //数组大小等于inputDegree
 
     unsigned int memberNum;
     //Only used by Server node
@@ -111,21 +109,21 @@ private:
 
     void handleATSStatisticMessage(ATSStatisticMessage* atsStatisticMsg);
 
-    void handleATSChildNumIncreaseMessage(ATSChildNumIncreaseMessage* atsChildNumIncreaseMsg);//增加对应支流的子节点数量
+    void handleATSChildNumIncreaseMessage(ATSChildNumIncreaseMessage* atsChildNumIncreaseMsg);    //增加对应支流的子节点数量
 
     //Subfunctions
     void sendATSQueryResponseMessage(TransportAddress address);
     void initializeATSMessage(ATSMessage* atsMsg);
     unsigned int calculateATSMessageBitLength(ATSMessage* atsMsg);
     void setATSMessageBitLength(ATSMessage* atsMsg);
-    void sendATSMessageToUDP(ATSMessage* atsMsg,TransportAddress address);
+    void sendATSMessageToUDP(ATSMessage* atsMsg, TransportAddress address);
     void startJoinProcess();
     void checkNodeState();
     void updateVisualization();
     unsigned int getDataNumBySeq(unsigned int seq);
-	//通过TransportAddress来取得lag
-	double getLagByAddress(TransportAddress address);
-
+    //通过TransportAddress来取得lag
+    double getLagByAddress(TransportAddress address);
+    double getTimeStampByAddress(TransportAddress address);
 
 public:
     virtual void initializeOverlay(int stage);

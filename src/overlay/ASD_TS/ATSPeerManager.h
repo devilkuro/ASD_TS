@@ -18,8 +18,8 @@
 
 class ATSPeerManager {
 public:
-	ATSPeerManager();
-	virtual ~ATSPeerManager();
+    ATSPeerManager();
+    virtual ~ATSPeerManager();
 };
 
 #endif /* ATSPEERMANAGER_H_ */

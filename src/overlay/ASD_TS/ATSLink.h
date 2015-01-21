@@ -27,48 +27,48 @@
 #include "TransportAddress.h"
 
 enum ATSLinkState {
-	//ATSLinkState
-	ATS_LINK_INIT = 0,
-	//ATSLinkState
-	ATS_LINK_SELECTED = 1,
-	//ATSLinkState
-	ATS_LINK_CONNECTED = 2
+    //ATSLinkState
+    ATS_LINK_INIT = 0,
+    //ATSLinkState
+    ATS_LINK_SELECTED = 1,
+    //ATSLinkState
+    ATS_LINK_CONNECTED = 2
 };
 
 class ATSLink {
 private:
-	//the address of the target node.
-	TransportAddress targetAddress;
-	//the address of the owner.
-	TransportAddress selfAddress;
-	//the data sequence of this link.
-	unsigned int dataSeq;
-	//the delay between two ends of this link.
-	double lag;
-	ATSLinkState state;
+    //the address of the target node.
+    TransportAddress targetAddress;
+    //the address of the owner.
+    TransportAddress selfAddress;
+    //the data sequence of this link.
+    unsigned int dataSeq;
+    //the delay between two ends of this link.
+    double lag;
+    ATSLinkState state;
 
 public:
-    unsigned int childNum;// record the child number. used for childLinkList only
-    bool refreshFlag;// record the refresh state. used for childLinkList only
+    unsigned int childNum; // record the child number. used for childLinkList only
+    bool refreshFlag; // record the refresh state. used for childLinkList only
 public:
 
-	ATSLink();
-	virtual ~ATSLink();
+    ATSLink();
+    virtual ~ATSLink();
 
-	unsigned int getDataSeq() const;
-	void setDataSeq(unsigned int dataSeq);
+    unsigned int getDataSeq() const;
+    void setDataSeq(unsigned int dataSeq);
 
-	double getLag() const;
-	void setLag(double lag);
+    double getLag() const;
+    void setLag(double lag);
 
-	TransportAddress getTargetAddress() const;
-	void setTargetAddress(TransportAddress targetAddress);
+    TransportAddress getTargetAddress() const;
+    void setTargetAddress(TransportAddress targetAddress);
 
-	TransportAddress getLinkOwnerAddress() const;
-	void setSelfAddress(TransportAddress selfAddress);
+    TransportAddress getLinkOwnerAddress() const;
+    void setSelfAddress(TransportAddress selfAddress);
 
-	ATSLinkState getState() const;
-	void setState(ATSLinkState state);
+    ATSLinkState getState() const;
+    void setState(ATSLinkState state);
 };
 
 #endif /* ATSLINK_H_ */

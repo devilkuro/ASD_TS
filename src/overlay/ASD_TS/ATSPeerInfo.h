@@ -23,48 +23,46 @@
 
 class ATSPeerInfo {
 private:
-	TransportAddress address;
-	unsigned int freeResource;
-	double lag;
-	//Only used by Server Node
-	bool isJoined;
+    TransportAddress address;
+    unsigned int freeResource;
+    double lag;
+    //Only used by Server Node
+    bool isJoined;
 
 public:
-	std::vector<ATSLink*> parentlinklist;
-	std::vector<ATSLink*> childlinklist;
-	std::vector<double> dataTimeStamp; //数据到达该节点的时间戳
-	std::vector<unsigned int> ChildNum_dataSeq;//存储孩子节点数量
+    std::vector<ATSLink*> parentlinklist;
+    std::vector<ATSLink*> childlinklist;
+    std::vector<double> dataTimeStamp; //数据到达该节点的时间戳
+    std::vector<unsigned int> ChildNum_dataSeq; //存储孩子节点数量
 
 public:
-	ATSPeerInfo();
-	virtual ~ATSPeerInfo();
+    ATSPeerInfo();
+    virtual ~ATSPeerInfo();
 
-	unsigned int getFreeResource() const;
-	void setFreeResource(unsigned int freeResource);
-	TransportAddress getAddress() const;
-	void setAddress(TransportAddress address);
-	double getLag() const;
-	void setLag(double lag);
-	bool getIsJoined() const;
-	void setIsJoined(bool isJoined);
+    unsigned int getFreeResource() const;
+    void setFreeResource(unsigned int freeResource);
+    TransportAddress getAddress() const;
+    void setAddress(TransportAddress address);
+    double getLag() const;
+    void setLag(double lag);
+    bool getIsJoined() const;
+    void setIsJoined(bool isJoined);
 
-	double getJoinScoreByDataSeq(unsigned int dataSeq);
-	double
-	getSwitchScoreByDataSeq(unsigned int dataSeq1, unsigned int dataSeq2,
-			double lag1, double lag2,double lag3, double minlag1, double minlag2);
-	double getInsertScoreByDataSeq(unsigned int dataSeq,double lagTF);
-	double getDataRatioByDataSeq(unsigned int dataSeq);
-	double getDataScoreByDataSeq(unsigned int dataSeq);
+    double getJoinScoreByDataSeq(unsigned int dataSeq);
+    double
+    getSwitchScoreByDataSeq(unsigned int dataSeq1, unsigned int dataSeq2, double lag1, double lag2, double lag3,
+            double minlag1, double minlag2, double timeStampA, unsigned int childNo);
+    double getInsertScoreByDataSeq(unsigned int dataSeq, double lagTF);
+    double getDataRatioByDataSeq(unsigned int dataSeq);
+    double getDataScoreByDataSeq(unsigned int dataSeq);
 
-	TransportAddress getChildAddressByDataSeq(unsigned int dataSeq);
-	unsigned int getChildIndexByDataSeq(unsigned int dataSeq);
-	unsigned int getChildListSize();
+    TransportAddress getChildAddressByDataSeq(unsigned int dataSeq);
+    unsigned int getChildIndexByDataSeq(unsigned int dataSeq);
+    unsigned int getChildListSize();
     //得到lag最短的孩子节点的lag
-	double getNearestChildLag(unsigned int dataSeq);
+    double getNearestChildLag(unsigned int dataSeq);
+    double result2score(double result);
 
 };
-
-
-
 
 #endif /* ATSPEERINFO_H_ */
