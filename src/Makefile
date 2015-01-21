@@ -2,7 +2,7 @@
 # OMNeT++/OMNEST Makefile for OverSim
 #
 # This file was generated with the command:
-#  opp_makemake -f --deep -O out -I../../inet/src/networklayer/common -I../../inet/src/networklayer/rsvp_te -I../../inet/src/networklayer/icmpv6 -I../../inet/src/transport/tcp -I../../inet/src/networklayer/mpls -I../../inet/src/networklayer/ted -I../../inet/src/networklayer/contract -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/mfcore -I../../inet/src/networklayer/ldp -I../../inet/src/applications/udpapp -I../../inet/src/networklayer/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/networklayer/ipv6 -I../../inet/src/transport/sctp -I../../inet/src/world -I../../inet/src/applications/pingapp -I../../inet/src/linklayer/contract -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -I../../inet/src/networklayer/autorouting -L../../inet/out/$$\(CONFIGNAME\)/src -linet -KINET_PROJ=../../inet -- -lgmp
+#  opp_makemake -f --deep -I../../inet/src/networklayer/common -I../../inet/src/networklayer/rsvp_te -I../../inet/src/networklayer/icmpv6 -I../../inet/src/transport/tcp -I../../inet/src/networklayer/mpls -I../../inet/src/networklayer/ted -I../../inet/src/networklayer/contract -I../../inet/src/util -I../../inet/src/transport/contract -I../../inet/src/linklayer/mfcore -I../../inet/src/networklayer/ldp -I../../inet/src/applications/udpapp -I../../inet/src/networklayer/ipv4 -I../../inet/src/base -I../../inet/src/util/headerserializers -I../../inet/src/networklayer/ipv6 -I../../inet/src/transport/sctp -I../../inet/src/world -I../../inet/src/applications/pingapp -I../../inet/src/linklayer/contract -I../../inet/src/networklayer/arp -I../../inet/src/transport/udp -I../../inet/src/networklayer/autorouting -L../../inet/out/$$\(CONFIGNAME\)/src -linet -KINET_PROJ=../../inet
 #
 
 # Name of target to be created (-o option)
@@ -89,7 +89,7 @@ INCLUDE_PATH = \
     -Iunderlay/singlehostunderlay
 
 # Additional object and library files to link with
-EXTRA_OBJS = -lgmp
+EXTRA_OBJS =
 
 # Additional libraries (-L, -l options)
 LIBS = -L../../inet/out/$(CONFIGNAME)/src  -linet
