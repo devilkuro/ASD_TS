@@ -1,6 +1,3 @@
-
-
-
 #################
 ## Eclipse
 #################
@@ -130,7 +127,6 @@ publish/
 # Publish Web Output
 *.Publish.xml
 *.pubxml
-*.publishproj
 
 # NuGet Packages Directory
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
@@ -191,7 +187,7 @@ $RECYCLE.BIN/
 ## Python
 #############
 
-*.py[cod]
+*.py[co]
 
 # Packages
 *.egg
@@ -218,24 +214,11 @@ pip-log.txt
 #Mr Developer
 .mr.developer.cfg
 
-
-#################
-## Omnetpp
-#################
-simulations/tools/
-simulations/realworld/
-images/
-doc/
+#OMNet++
 out/
-*_m.h
-*_m.cc
-simulations/dummy.xml
-simulations/nodes_2d.xml
-simulations/nodes_2d_15000.xml
-simulations/nodes_3d.xml
-*.trace
-*.parameters
+/simulations/results/
+*.xml
 *.exe
-src/common/cbr/areas_nodes_2d_15000.xml
-simulations/results/
-simulations/.tkenvrc
+/out
+*.tmp*
+.tkenvrc
