@@ -18,6 +18,8 @@
 
 #include <vector>
 
+#include "common/UnderlayConfigurator.h"
+#include "common/GlobalStatistics.h"
 
 #include "BaseOverlay.h"
 

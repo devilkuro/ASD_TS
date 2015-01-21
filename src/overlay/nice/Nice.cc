@@ -83,10 +83,7 @@ Nice::Nice() : isRendevouzPoint(false),
                numReceived(0),
                totalReceivedBytes(0),
                numHeartbeat(0),
-               totalHeartbeatBytes(0),
-               nice_dataTimeStamp(0),
-               nice_startJoinTime(0),
-               nice_finishJoinTime(0)
+               totalHeartbeatBytes(0)
 {
 
     /* do nothing at this point of time, OverSim calls initializeOverlay */
@@ -124,9 +121,6 @@ Nice::~Nice()
  */
 void Nice::initializeOverlay( int stage )
 {
-    nice_dataTimeStamp=0;
-    nice_startJoinTime=0;
-    nice_finishJoinTime=0;
 
     /* Because of IPAddressResolver, we need to wait until interfaces
      * are registered, address auto-assignment takes place etc. */
@@ -236,7 +230,7 @@ void Nice::initializeOverlay( int stage )
 void Nice::joinOverlay()
 {
     changeState(INIT);
-    changeState(BOOTSTRAP);
+    changeState(JOIN);
 } // joinOverlay
 
 void Nice::handleNodeLeaveNotification() {
@@ -253,7 +247,6 @@ void Nice::handleNodeLeaveNotification() {
  */
 void Nice::changeState( int toState )
 {
-    simtime_t nice_time=1.0;
     switch (toState) {
 
     case INIT:
@@ -266,12 +259,10 @@ void Nice::changeState( int toState )
 
         break;
 
-    case BOOTSTRAP:
+    case JOIN:
 
-        state = BOOTSTRAP;
-        if(nice_startJoinTime==0){
-            nice_startJoinTime=simTime()/nice_time;
-        }
+        state = JOIN;
+
         /* get rendevouz point */
         RendevouzPoint = bootstrapList->getBootstrapNode();
         if (RendevouzPoint.isUnspecified()) {
@@ -302,10 +293,6 @@ void Nice::changeState( int toState )
     case READY:
 
         state = READY;
-
-        if (nice_finishJoinTime==0) {
-            nice_finishJoinTime=simTime()/nice_time;
-        }
 
         cancelEvent(heartbeatTimer);
         scheduleAt(simTime() + heartbeatInterval, heartbeatTimer);
@@ -355,7 +342,7 @@ void Nice::handleTimerEvent( cMessage* msg )
     else if (msg->isName("queryTimer")) {
 
         RECORD_STATS(++numInconsistencies; ++numQueryTimeouts);
-        if (!tempResolver.isUnspecified() && 
+        if (!tempResolver.isUnspecified() &&
                 (tempResolver == RendevouzPoint ||
                  (!polledRendevouzPoint.isUnspecified() && tempResolver == polledRendevouzPoint))) {
             Query(RendevouzPoint, joinLayer);
@@ -517,7 +504,7 @@ void Nice::handleUDPMessage(BaseOverlayMessage* msg)
                 break;
 
             default:
-                
+
                 delete niceMsg;
         }
     }
@@ -556,8 +543,6 @@ void Nice::finishOverlay()
     globalStatistics->addStdDev("Nice: Send Heartbeat Messages/s", (double)numHeartbeat / time);
     globalStatistics->addStdDev("Nice: Send Heartbeat Bytes/s", (double)totalHeartbeatBytes / time);
     if( debug_join ) recordScalar("Nice: Total joins", (double)numJoins);
-    globalStatistics->recordOutVector("Fanjing:Nice:dataTimeStamp",nice_dataTimeStamp);
-    globalStatistics->recordOutVector("Fanjing:Nice:joinCostTime",nice_finishJoinTime-nice_startJoinTime);
 
 } // finishOverlay
 
@@ -992,7 +977,7 @@ void Nice::handleNiceLeaderHeartbeat(NiceLeaderHeartbeat* lhbMsg)
 
     }
 
-    if (!clusters[lhbMsg->getLayer()].getLeader().isUnspecified() && 
+    if (!clusters[lhbMsg->getLayer()].getLeader().isUnspecified() &&
             clusters[lhbMsg->getLayer()].getLeader() == thisNode) {
 
         if (debug_heartbeats)
@@ -1029,7 +1014,7 @@ void Nice::handleNiceLeaderHeartbeat(NiceLeaderHeartbeat* lhbMsg)
         if (debug_heartbeats)
             EV << "Possible multiple leaders detected... sending remove to " << clusters[lhbMsg->getLayer()].getLeader() << " leader.\n";
         sendRemoveTo(clusters[lhbMsg->getLayer()].getLeader(), lhbMsg->getLayer());
-        
+
     }
 
     /* Everything is in order. Process HB */
@@ -1401,12 +1386,6 @@ void Nice::handleNiceMulticast(NiceMulticastMessage* multicastMsg)
 {
     RECORD_STATS(++numReceived; totalReceivedBytes += multicastMsg->getByteLength());
 
-    simtime_t nice_time=1.0;
-    if(nice_dataTimeStamp==0){
-        nice_dataTimeStamp=(simTime()-multicastMsg->getNice_dataTimeStamp())/nice_time;
-    }else if(nice_dataTimeStamp<(simTime()-multicastMsg->getNice_dataTimeStamp())/nice_time){
-        nice_dataTimeStamp=(simTime()-multicastMsg->getNice_dataTimeStamp())/nice_time;
-    }
     /* If it is mine, count */
     if (multicastMsg->getSrcNode() == thisNode) {
 
@@ -2172,7 +2151,7 @@ void Nice::cleanPeers()
 {
     // Clean tempPeers
     std::vector<TransportAddress> deadTempPeers;
-    
+
     std::map<TransportAddress, simtime_t>::iterator itTempPeer;
     for (itTempPeer = tempPeers.begin(); itTempPeer != tempPeers.end(); ++itTempPeer) {
         if (simTime() > (itTempPeer->second + 3 * heartbeatInterval)) {
@@ -2234,8 +2213,7 @@ bool Nice::splitNeeded()
     for (int i = 0, highest = std::min(getHighestLeaderLayer(), maxLayers - 2);
             i <= highest && !clusters[i].getLeader().isUnspecified() && clusters[i].getLeader() == thisNode;
             ++i) {
-        //Edit by Fanjing 2012-12-9
-        if (clusters[i].getSize() > 2 * k + 1 &&
+        if (clusters[i].getSize() > 3 * k + 1 &&
                 clusters[i].isLeaderConfirmed() &&
                 (i == maxLayers - 1 || clusters[i + 1].getSize() == 0 || clusters[i + 1].isLeaderConfirmed())) {
             splitMade = true;
@@ -2259,7 +2237,7 @@ bool Nice::mergeNeeded()
     // The layer at which we must merge
     int mergeLayer;
     int highestLeaderLayer = getHighestLeaderLayer();
-    
+
     // Find lowest layer that needs merging.
     // The node will disappear from all higher layers.
     for (mergeLayer= 0; mergeLayer <= highestLeaderLayer && mergeLayer < maxLayers - 1; ++mergeLayer) {
@@ -2275,7 +2253,7 @@ bool Nice::mergeNeeded()
             }
         }
     }
-    
+
     return false;
 }
 
@@ -3356,9 +3334,6 @@ void Nice::handleAppMessage(cMessage* msg)
         niceMsg->setSrcNode(thisNode);
         niceMsg->setLastHop(thisNode);
         niceMsg->setHopCount(0);
-
-        simtime_t nice_time=1.0;
-        niceMsg->setNice_dataTimeStamp(simTime()/nice_time);
 
         niceMsg->setBitLength(NICEMULTICAST_L(niceMsg));
 

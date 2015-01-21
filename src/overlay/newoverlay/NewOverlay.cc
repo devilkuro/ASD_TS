@@ -1,15 +1,13 @@
 
+#include "NewOverlay.h"
 #include <iostream>
 #include <string>
-#include <UnderlayConfigurator.h>
-#include <GlobalStatistics.h>
-#include "NewOverlay.h"
 
 // Important! This line must be present for each module you extend (see BaseApp)
 Define_Module( NewOverlay);
 
 #define BIGBIT (1 << 24)
-const char *newArrows[] = { "m=m,50,50,50,50;ls=yellow,2",
+const char *newArrows[] = { "m=m,50,50,50,50;ls=orange,2",
                                 "m=m,50,50,50,50;ls=magenta,3",
                                 "m=m,50,50,50,50;ls=red,4",
                                 "m=m,50,50,50,50;ls=orange,5",
@@ -547,7 +545,7 @@ void NewOverlay::checkLinkState(){
     sendMessageToUDP(serverNode,joinSuccessMsg);
     joinSuccessTime = simTime();
     globalStatistics->recordOutVector("Fanjing:New::joinSuccessTime: ",myKey);
-    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "green");
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "white");
     nodeState = NodeState_Joined;
 }
 
@@ -814,7 +812,7 @@ void NewOverlay::handleNewJoinSuccessMessage(NewJoinSuccessMessage *msg){
             EV<<"[Fanjing]NewOverlay::ServerNode -> NodeState_Init: " <<msg->getSrcNode()<<std::endl;
             if(joinedNodeList.size()==terminalNum-1){
 
-                getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "blue");
+                getParentModule()->getParentModule()->getDisplayString().setTagArg("i2", 1, "black");
                 for(unsigned int i=0;i<childList.size();i++) {
                     NewStatisticMessage *statisticMsg = new NewStatisticMessage();
                     statisticMsg->setSrcNode(nodeAddress);
@@ -841,6 +839,7 @@ void NewOverlay::handleNewStatisticMessage(NewStatisticMessage *msg)
     str1=std::string(newNumStr[msg->getDataSeq()]);
     simtime_t second=1.0;
     dataTimeStamp[msg->getDataSeq()]=msg->getDataTimeStamp()+simTime()-msg->getSentTime();
+    getParentModule()->getParentModule()->getDisplayString().setTagArg("t",0,dataTimeStamp[0].dbl()*1000);
     jumpNum[msg->getDataSeq()]=msg->getJumpNum()+1;
     str0="Fanjing:NEW::jumpNumHistogram";
     str0+=str1;

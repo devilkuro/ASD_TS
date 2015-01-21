@@ -103,12 +103,6 @@ protected:
 
 private:
 
-    /*Add by Fanjing*/
-    double nice_startJoinTime;
-    double nice_finishJoinTime;
-    double nice_dataTimeStamp;
-
-
     int pimp;
 
     TransportAddress RendevouzPoint;

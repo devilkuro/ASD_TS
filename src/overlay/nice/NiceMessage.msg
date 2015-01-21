@@ -111,7 +111,6 @@ message NiceMulticastMessage extends NiceMessage
 {
     TransportAddress lastHop;
     double sendTime;
-    double nice_dataTimeStamp;
     unsigned int seqNo;
     unsigned int hopCount;
 }

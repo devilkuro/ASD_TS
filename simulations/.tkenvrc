@@ -1,3 +1,4 @@
-# Partial Tkenv config file -- see $HOME/.tkenvrc as well
-inspector "SimpleUnderlayNetwork" "SimpleUnderlayNetwork" "2" "1920x1018+75+75:iconic"
+# Partial OMNeT++/Tkenv config file -- see $HOME/.tkenvrc as well
+config default-configname	{ATSConfig-small-0}
+config default-runnumber	{0}
 
