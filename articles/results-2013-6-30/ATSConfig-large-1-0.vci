@@ -1,0 +1,41 @@
+file 198526 1375513654                                          
+version 2
+run ATSConfig-large-1-0-20130630-15:05:38-4424
+attr configname ATSConfig-large-1
+attr datetime 20130630-15:05:38
+attr experiment ATSConfig-large-1
+attr inifile E:/2011112922/WorkStations/OMNet41/OverSim-20101103/simulations/omnetpp.ini
+attr iterationvars ""
+attr iterationvars2 $repetition=0
+attr measurement ""
+attr network oversim.underlay.simpleunderlay.SimpleUnderlayNetwork
+attr processid 4424
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+vector 14  SimpleUnderlayNetwork.globalObserver.globalStatistics  "GlobalNodeList: Number of nodes"  ETV
+14	1717 609 3018524 3030219 1550 2950 29 500 500 14500 7250000
+vector 15  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp0  ETV
+15	2326 22005 3030642 3030642 2999.938903075 2999.938903075 499 0.042280460000029 0.45630495299997 64.154752279008 9.9822583396399
+vector 16  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataHops0  ETV
+16	24331 14507 3030642 3030642 2999.938903075 2999.938903075 499 1 12 3126 21704
+vector 17  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataDataNum0  ETV
+17	38838 14471 3030642 3030642 2999.938903075 2999.938903075 499 0 9 496 3496
+vector 18  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp1  ETV
+18	53309 21823 3030642 3030642 2999.938903075 2999.938903075 499 0.11901759800003 0.53094232100011 118.51175243901 28.942937310188
+vector 19  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataHops1  ETV
+19	75132 14471 3030642 3030642 2999.938903075 2999.938903075 499 1 9 2301 11537
+vector 20  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataDataNum1  ETV
+20	89603 14471 3030642 3030642 2999.938903075 2999.938903075 499 0 9 496 3494
+vector 21  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp2  ETV
+21	104074 22076 3030642 3030642 2999.938903075 2999.938903075 499 0.028290776999938 0.40935929000011 53.376119300005 6.850067614178
+vector 22  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataHops2  ETV
+22	126150 14471 3030642 3030642 2999.938903075 2999.938903075 499 1 9 2655 14985
+vector 23  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataDataNum2  ETV
+23	140621 14471 3030642 3030642 2999.938903075 2999.938903075 499 0 9 496 3580
+vector 24  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:maxdataTimeStamp  ETV
+24	155092 21814 3030642 3030642 2999.938903075 2999.938903075 499 0.14839658699998 0.53094232100011 122.47609914501 30.56441352792
+vector 25  SimpleUnderlayNetwork.globalObserver.globalStatistics  Fanjing:ATS:JoinTime  ETV
+25	176906 21620 3030642 3030642 2999.938903075 2999.938903075 499 0.099515056999962 2.1137802600001 217.070962213 137.56379347025
