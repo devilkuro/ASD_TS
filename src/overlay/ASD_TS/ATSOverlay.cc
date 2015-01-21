@@ -177,6 +177,7 @@ void ATSOverlay::handleATSMessgae(ATSMessage *atsMsg) {
                 readyMenberNum = 0;
             }
         } else {
+                // fixme check here 212301: 2015-1-21
             for (unsigned int i = 0; i < childLinkList.size(); i++) {
                 if (0 == childLinkList[i]->getDataSeq()) {
                     sendATSMessageToUDP(atsMsg->dup(),
