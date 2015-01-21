@@ -222,3 +222,5 @@ out/
 /out
 *.tmp*
 .tkenvrc
+*_m.h
+*_m.cc
