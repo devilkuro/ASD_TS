@@ -106,7 +106,8 @@ private:
     /*Add by Fanjing*/
     double nice_startJoinTime;
     double nice_finishJoinTime;
-    double nice_dataTimeStamp;
+    double nice_maxdataTimeStamp;
+    double nice_finaldataTimeStamp;
 
 
     int pimp;

@@ -84,7 +84,7 @@ Nice::Nice() : isRendevouzPoint(false),
                totalReceivedBytes(0),
                numHeartbeat(0),
                totalHeartbeatBytes(0),
-               nice_dataTimeStamp(0),
+               nice_maxdataTimeStamp(0),
                nice_startJoinTime(0),
                nice_finishJoinTime(0)
 {
@@ -124,7 +124,7 @@ Nice::~Nice()
  */
 void Nice::initializeOverlay( int stage )
 {
-    nice_dataTimeStamp=0;
+    nice_maxdataTimeStamp=0;
     nice_startJoinTime=0;
     nice_finishJoinTime=0;
 
@@ -555,7 +555,8 @@ void Nice::finishOverlay()
     globalStatistics->addStdDev("Nice: Send Heartbeat Messages/s", (double)numHeartbeat / time);
     globalStatistics->addStdDev("Nice: Send Heartbeat Bytes/s", (double)totalHeartbeatBytes / time);
     if( debug_join ) recordScalar("Nice: Total joins", (double)numJoins);
-    globalStatistics->recordOutVector("Fanjing:Nice:dataTimeStamp",nice_dataTimeStamp);
+    globalStatistics->recordOutVector("Fanjing:Nice:MaxdataTimeStamp",nice_maxdataTimeStamp);
+    globalStatistics->recordOutVector("Fanjing:Nice:FinaldataTimeStamp",nice_finaldataTimeStamp);
     globalStatistics->recordOutVector("Fanjing:Nice:joinCostTime",nice_finishJoinTime-nice_startJoinTime);
 
 } // finishOverlay
@@ -1401,11 +1402,13 @@ void Nice::handleNiceMulticast(NiceMulticastMessage* multicastMsg)
     RECORD_STATS(++numReceived; totalReceivedBytes += multicastMsg->getByteLength());
 
     // fixme update nice_dataTimeStamp here, check it.
-    if(nice_dataTimeStamp==0){
-        nice_dataTimeStamp=simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
-    }else if(nice_dataTimeStamp<simTime().dbl()-multicastMsg->getNice_dataTimeStamp()){
-        nice_dataTimeStamp=simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
+    if(nice_maxdataTimeStamp==0){
+        nice_maxdataTimeStamp=simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
+    }else if(nice_maxdataTimeStamp<simTime().dbl()-multicastMsg->getNice_dataTimeStamp()){
+        nice_maxdataTimeStamp=simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
     }
+    nice_finaldataTimeStamp = simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
+
     /* If it is mine, count */
     if (multicastMsg->getSrcNode() == thisNode) {
 
