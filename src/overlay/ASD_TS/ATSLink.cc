@@ -54,10 +54,8 @@ void ATSLink::setState(ATSLinkState state) {
     this->state = state;
 }
 ATSLink::ATSLink() {
-    // TODO Auto-generated constructor stub
 
 }
 
 ATSLink::~ATSLink() {
-    // TODO Auto-generated destructor stub
 }

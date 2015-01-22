@@ -177,7 +177,7 @@ void ATSOverlay::handleATSMessgae(ATSMessage *atsMsg) {
                 readyMenberNum = 0;
             }
         } else {
-                // fixme check here 212301: 2015-1-21
+            // delivery base massages
             for (unsigned int i = 0; i < childLinkList.size(); i++) {
                 if (0 == childLinkList[i]->getDataSeq()) {
                     sendATSMessageToUDP(atsMsg->dup(),
@@ -866,7 +866,6 @@ void ATSOverlay::handleATSStatisticMessage(
     }
     ATSMessage* atsMsg = new ATSMessage();
     sendATSMessageToUDP(atsMsg, ServerAddress);
-
 }
 
 void ATSOverlay::updateVisualization() {
@@ -885,12 +884,10 @@ void ATSOverlay::updateVisualization() {
 }
 
 ATSOverlay::ATSOverlay() {
-    // TODO Auto-generated constructor stub
 
 }
 
 ATSOverlay::~ATSOverlay() {
-    // TODO Auto-generated destructor stub
     for (unsigned int i = 0; i < parentLinkList.size(); i++) {
         delete parentLinkList[i];
     }

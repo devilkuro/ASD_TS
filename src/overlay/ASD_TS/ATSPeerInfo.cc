@@ -138,7 +138,6 @@ unsigned int ATSPeerInfo::getChildIndexByDataSeq(unsigned int dataSeq) {
     return 0;
 }
 ATSPeerInfo::ATSPeerInfo() {
-    // TODO Auto-generated constructor stub
 
 }
 
@@ -148,7 +147,6 @@ double ATSPeerInfo::result2score(double result) {
 }
 
 ATSPeerInfo::~ATSPeerInfo() {
-    // TODO Auto-generated destructor stub
     for (unsigned int i = 0; i < parentlinklist.size(); i++) {
         delete parentlinklist[i];
     }
