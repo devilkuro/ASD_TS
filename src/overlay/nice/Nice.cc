@@ -1400,12 +1400,11 @@ void Nice::handleNiceMulticast(NiceMulticastMessage* multicastMsg)
 {
     RECORD_STATS(++numReceived; totalReceivedBytes += multicastMsg->getByteLength());
 
-    // fixme change to .dbl() function
-    simtime_t nice_time=1.0;
+    // fixme update nice_dataTimeStamp here, check it.
     if(nice_dataTimeStamp==0){
-        nice_dataTimeStamp=(simTime()-multicastMsg->getNice_dataTimeStamp())/nice_time;
-    }else if(nice_dataTimeStamp<(simTime()-multicastMsg->getNice_dataTimeStamp())/nice_time){
-        nice_dataTimeStamp=(simTime()-multicastMsg->getNice_dataTimeStamp())/nice_time;
+        nice_dataTimeStamp=simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
+    }else if(nice_dataTimeStamp<simTime().dbl()-multicastMsg->getNice_dataTimeStamp()){
+        nice_dataTimeStamp=simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
     }
     /* If it is mine, count */
     if (multicastMsg->getSrcNode() == thisNode) {
@@ -3358,9 +3357,8 @@ void Nice::handleAppMessage(cMessage* msg)
         niceMsg->setLastHop(thisNode);
         niceMsg->setHopCount(0);
 
-		// fixme change to .dbl() function
-        simtime_t nice_time=1.0;
-        niceMsg->setNice_dataTimeStamp(simTime()/nice_time);
+        // Fanjing: set initial time stamp here
+        niceMsg->setNice_dataTimeStamp(simTime().dbl());
 
         niceMsg->setBitLength(NICEMULTICAST_L(niceMsg));
 
