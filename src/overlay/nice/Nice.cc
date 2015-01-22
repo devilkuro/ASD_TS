@@ -83,7 +83,10 @@ Nice::Nice() : isRendevouzPoint(false),
                numReceived(0),
                totalReceivedBytes(0),
                numHeartbeat(0),
-               totalHeartbeatBytes(0)
+               totalHeartbeatBytes(0),
+               nice_dataTimeStamp(0),
+               nice_startJoinTime(0),
+               nice_finishJoinTime(0)
 {
 
     /* do nothing at this point of time, OverSim calls initializeOverlay */
@@ -121,6 +124,9 @@ Nice::~Nice()
  */
 void Nice::initializeOverlay( int stage )
 {
+    nice_dataTimeStamp=0;
+    nice_startJoinTime=0;
+    nice_finishJoinTime=0;
 
     /* Because of IPAddressResolver, we need to wait until interfaces
      * are registered, address auto-assignment takes place etc. */
@@ -262,7 +268,9 @@ void Nice::changeState( int toState )
     case JOIN:
 
         state = JOIN;
-
+		if(nice_startJoinTime==0){
+            nice_startJoinTime=simTime().dbl();
+        }
         /* get rendevouz point */
         RendevouzPoint = bootstrapList->getBootstrapNode();
         if (RendevouzPoint.isUnspecified()) {
@@ -293,6 +301,10 @@ void Nice::changeState( int toState )
     case READY:
 
         state = READY;
+
+        if (nice_finishJoinTime==0) {
+            nice_finishJoinTime=simTime().dbl();
+        }
 
         cancelEvent(heartbeatTimer);
         scheduleAt(simTime() + heartbeatInterval, heartbeatTimer);
@@ -543,6 +555,8 @@ void Nice::finishOverlay()
     globalStatistics->addStdDev("Nice: Send Heartbeat Messages/s", (double)numHeartbeat / time);
     globalStatistics->addStdDev("Nice: Send Heartbeat Bytes/s", (double)totalHeartbeatBytes / time);
     if( debug_join ) recordScalar("Nice: Total joins", (double)numJoins);
+    globalStatistics->recordOutVector("Fanjing:Nice:dataTimeStamp",nice_dataTimeStamp);
+    globalStatistics->recordOutVector("Fanjing:Nice:joinCostTime",nice_finishJoinTime-nice_startJoinTime);
 
 } // finishOverlay
 
@@ -1386,6 +1400,13 @@ void Nice::handleNiceMulticast(NiceMulticastMessage* multicastMsg)
 {
     RECORD_STATS(++numReceived; totalReceivedBytes += multicastMsg->getByteLength());
 
+    // fixme change to .dbl() function
+    simtime_t nice_time=1.0;
+    if(nice_dataTimeStamp==0){
+        nice_dataTimeStamp=(simTime()-multicastMsg->getNice_dataTimeStamp())/nice_time;
+    }else if(nice_dataTimeStamp<(simTime()-multicastMsg->getNice_dataTimeStamp())/nice_time){
+        nice_dataTimeStamp=(simTime()-multicastMsg->getNice_dataTimeStamp())/nice_time;
+    }
     /* If it is mine, count */
     if (multicastMsg->getSrcNode() == thisNode) {
 
@@ -2213,6 +2234,8 @@ bool Nice::splitNeeded()
     for (int i = 0, highest = std::min(getHighestLeaderLayer(), maxLayers - 2);
             i <= highest && !clusters[i].getLeader().isUnspecified() && clusters[i].getLeader() == thisNode;
             ++i) {
+            // I have edited here before, but I have no idea why. check it agein.
+            // in old edition, I change 3 * k to 2 * k.
         if (clusters[i].getSize() > 3 * k + 1 &&
                 clusters[i].isLeaderConfirmed() &&
                 (i == maxLayers - 1 || clusters[i + 1].getSize() == 0 || clusters[i + 1].isLeaderConfirmed())) {
@@ -3334,6 +3357,10 @@ void Nice::handleAppMessage(cMessage* msg)
         niceMsg->setSrcNode(thisNode);
         niceMsg->setLastHop(thisNode);
         niceMsg->setHopCount(0);
+
+		// fixme change to .dbl() function
+        simtime_t nice_time=1.0;
+        niceMsg->setNice_dataTimeStamp(simTime()/nice_time);
 
         niceMsg->setBitLength(NICEMULTICAST_L(niceMsg));
 
