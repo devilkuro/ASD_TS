@@ -163,26 +163,8 @@ void ATSOverlay::handleATSMessgae(ATSMessage *atsMsg) {
                             break;
                         }
                     }
-                } else if (readyMenberNum
-                        == (targetOverlayTerminalNum - 1) * inputDegree) {
-                    // send atsMsg to tell other hosts this simulation will end soon
-                    ATSMessage* atsMsg = new ATSMessage();
-                    for (unsigned int i = 0; i < childLinkList.size(); i++) {
-                        if (0 == childLinkList[i]->getDataSeq()) {
-                            sendATSMessageToUDP(atsMsg->dup(),
-                                    childLinkList[i]->getTargetAddress());
-                        }
-                    }
                 }
                 readyMenberNum = 0;
-            }
-        } else {
-            // delivery base massages
-            for (unsigned int i = 0; i < childLinkList.size(); i++) {
-                if (0 == childLinkList[i]->getDataSeq()) {
-                    sendATSMessageToUDP(atsMsg->dup(),
-                            childLinkList[i]->getTargetAddress());
-                }
             }
         }
         break;
@@ -833,17 +815,6 @@ void ATSOverlay::handleATSJoinSuccessMessage(
         atsStatisticMsg->setHop(0);
         sendATSMessageToUDP(atsStatisticMsg,
                 childLinkList[i]->getTargetAddress());
-    }
-    //  this is duplicated with handleMsg function, check it..
-    // checked no duplication here. --the other place is mid-result, here is final-result.
-    if (joinedMemberNum == targetOverlayTerminalNum - 1) {
-        ATSMessage* atsMsg = new ATSMessage("atsMsg");
-        for (unsigned int i = 0; i < childLinkList.size(); i++) {
-            if (0 == childLinkList[i]->getDataSeq()) {
-                sendATSMessageToUDP(atsMsg->dup(),
-                        childLinkList[i]->getTargetAddress());
-            }
-        }
     }
 }
 
