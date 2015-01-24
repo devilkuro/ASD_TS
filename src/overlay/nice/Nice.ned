@@ -56,7 +56,8 @@ simple Nice extends BaseOverlay
         
         double startTime;
         
-        int k;      
+        int k;
+        double nice_statisticsInterval = default(3s) @unit(s);      
 }
 
 //

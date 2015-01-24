@@ -24,7 +24,7 @@
 
 #include <stdio.h>
 
-#include <GlobalStatistics.h>
+#include <common/GlobalStatistics.h>
 #include "SimpleInfo.h"
 #include "SimpleNodeEntry.h"
 #include "SimpleUDP.h"
@@ -69,7 +69,14 @@ const short Nice::maxLayers;
 /******************************************************************************
  * Constructor
  */
-Nice::Nice() : isRendevouzPoint(false),
+Nice::Nice() :
+               nice_startJoinTime(0),
+               nice_finishJoinTime(0),
+               nice_maxdataTimeStamp(0),
+               nice_finaldataTimeStamp(0),
+               nice_statisticsTimer(0),
+               nice_statisticsInterval(0),
+               gs(NULL),isRendevouzPoint(false),
                isTempPeered(false),
                numInconsistencies(0),
                numQueryTimeouts(0),
@@ -83,10 +90,7 @@ Nice::Nice() : isRendevouzPoint(false),
                numReceived(0),
                totalReceivedBytes(0),
                numHeartbeat(0),
-               totalHeartbeatBytes(0),
-               nice_maxdataTimeStamp(0),
-               nice_startJoinTime(0),
-               nice_finishJoinTime(0)
+               totalHeartbeatBytes(0)
 {
 
     /* do nothing at this point of time, OverSim calls initializeOverlay */
@@ -99,7 +103,10 @@ Nice::Nice() : isRendevouzPoint(false),
  */
 Nice::~Nice()
 {
-
+    if(isRendevouzPoint){
+        gs->output("results/nice_result.txt");
+        Fanjing::GlobalStatistics::release();
+    }
     // destroy self timer messages
     cancelAndDelete(heartbeatTimer);
     cancelAndDelete(maintenanceTimer);
@@ -127,6 +134,8 @@ void Nice::initializeOverlay( int stage )
     nice_maxdataTimeStamp=0;
     nice_startJoinTime=0;
     nice_finishJoinTime=0;
+    gs = Fanjing::GlobalStatistics::request();
+    nice_statisticsInterval = hasPar("nice_statisticsInterval")?par("nice_statisticsInterval"):1;
 
     /* Because of IPAddressResolver, we need to wait until interfaces
      * are registered, address auto-assignment takes place etc. */
@@ -540,6 +549,9 @@ void Nice::finishOverlay()
     simtime_t time = globalStatistics->calcMeasuredLifetime(creationTime);
     if (time < GlobalStatistics::MIN_MEASURED) return;
 
+/*
+    // use Fanjing::GlobalStatistics instead.
+
     globalStatistics->addStdDev("Nice: Inconsistencies/s", (double)numInconsistencies / time);
     globalStatistics->addStdDev("Nice: Query Timeouts/s", (double)numQueryTimeouts / time);
     globalStatistics->addStdDev("Nice: Peer Timeouts/s", (double)numPeerTimeouts / time);
@@ -558,7 +570,16 @@ void Nice::finishOverlay()
     globalStatistics->recordOutVector("Fanjing:Nice:MaxdataTimeStamp",nice_maxdataTimeStamp);
     globalStatistics->recordOutVector("Fanjing:Nice:FinaldataTimeStamp",nice_finaldataTimeStamp);
     globalStatistics->recordOutVector("Fanjing:Nice:joinCostTime",nice_finishJoinTime-nice_startJoinTime);
-
+    */
+    if (nice_finishJoinTime>0) {
+        gs->changeName("joinCostTime")<<thisNode.getIp().str()<<nice_finishJoinTime-nice_startJoinTime<<gs->endl;
+        gs->changeName("MaxdataTimeStamp")<<thisNode.getIp().str()<<nice_maxdataTimeStamp<<gs->endl;
+        gs->changeName("FinaldataTimeStamp")<<thisNode.getIp().str()<<nice_finaldataTimeStamp<<gs->endl;
+    }else{
+        gs->changeName("joinCostTime")<<thisNode.getIp().str()<<simTime().dbl()-nice_startJoinTime<<gs->endl;
+        gs->changeName("MaxdataTimeStamp")<<thisNode.getIp().str()<<simTime().dbl()-nice_startJoinTime<<gs->endl;
+        gs->changeName("FinaldataTimeStamp")<<thisNode.getIp().str()<<simTime().dbl()-nice_startJoinTime<<gs->endl;
+    }
 } // finishOverlay
 
 
@@ -1401,11 +1422,17 @@ void Nice::handleNiceMulticast(NiceMulticastMessage* multicastMsg)
 {
     RECORD_STATS(++numReceived; totalReceivedBytes += multicastMsg->getByteLength());
 
-    // fixme update nice_dataTimeStamp here, check it.
+    // update nice_dataTimeStamp here, check it.
     if(nice_maxdataTimeStamp==0){
         nice_maxdataTimeStamp=simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
+        gs->changeName("nice_firstReceiveDelay")<<thisNode.getIp().str()<<nice_maxdataTimeStamp<<gs->endl;
+        nice_statisticsTimer = simTime().dbl();
     }else if(nice_maxdataTimeStamp<simTime().dbl()-multicastMsg->getNice_dataTimeStamp()){
         nice_maxdataTimeStamp=simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
+    }
+    if (simTime().dbl()>nice_statisticsTimer+nice_statisticsInterval) {
+        nice_statisticsTimer = simTime().dbl();
+        gs->changeName("nice_ReceiveDelay")<<thisNode.getIp().str()<<simTime().dbl()<<simTime().dbl()-multicastMsg->getNice_dataTimeStamp()<<gs->endl;
     }
     nice_finaldataTimeStamp = simTime().dbl()-multicastMsg->getNice_dataTimeStamp();
 
@@ -2238,7 +2265,7 @@ bool Nice::splitNeeded()
             ++i) {
             // I have edited here before, but I have no idea why. check it agein.
             // in old edition, I change 3 * k to 2 * k.
-        if (clusters[i].getSize() > 3 * k + 1 &&
+        if (clusters[i].getSize() > 2 * k + 1 &&
                 clusters[i].isLeaderConfirmed() &&
                 (i == maxLayers - 1 || clusters[i + 1].getSize() == 0 || clusters[i + 1].isLeaderConfirmed())) {
             splitMade = true;

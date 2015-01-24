@@ -209,6 +209,8 @@ OBJS = \
     $O/common/cbr/globalViewBuilder/StrategySendAll.o \
     $O/common/cbr/globalViewBuilder/StrategySimplifyCoords.o \
     $O/common/cbr/globalViewBuilder/StrategyTreeTest.o \
+    $O/overlay/GlobalStatistics.o \
+    $O/overlay/GlobalStatisticsUnit.o \
     $O/overlay/ASD_TS/ATSLink.o \
     $O/overlay/ASD_TS/ATSOverlay.o \
     $O/overlay/ASD_TS/ATSPeerInfo.o \
@@ -561,7 +563,9 @@ $O/applications/almtest/MessageObserver.o: applications/almtest/MessageObserver.
 	applications/almtest/MessageObserver.h \
 	common/GlobalStatistics.h \
 	common/GlobalStatisticsAccess.h \
-	common/OverlayKey.h
+	common/OverlayKey.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h
 $O/applications/dht/DHT.o: applications/dht/DHT.cc \
 	applications/dht/DHT.h \
 	applications/dht/DHTDataStorage.h \
@@ -593,6 +597,8 @@ $O/applications/dht/DHT.o: applications/dht/DHT.cc \
 	common/TransportAddress.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -674,6 +680,8 @@ $O/applications/giasearchapp/GIASearchApp.o: applications/giasearchapp/GIASearch
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/gia/GiaMessage_m.h \
 	overlay/gia/GiaNode.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -1239,6 +1247,8 @@ $O/applications/kbrtestapp/KBRTestApp.o: applications/kbrtestapp/KBRTestApp.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -1293,6 +1303,8 @@ $O/applications/myapplication/MyApplication.o: applications/myapplication/MyAppl
 	common/UnderlayConfigurator.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -1388,6 +1400,8 @@ $O/applications/scribe/Scribe.o: applications/scribe/Scribe.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -1472,6 +1486,8 @@ $O/applications/simplegameclient/ConnectivityProbeApp.o: applications/simplegame
 	common/TransportAddress.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	underlay/singlehostunderlay/realtimescheduler.h \
 	underlay/singlehostunderlay/tunoutscheduler.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -1546,6 +1562,8 @@ $O/applications/simplegameclient/SimpleGameClient.o: applications/simplegameclie
 	common/TransportAddress.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	underlay/singlehostunderlay/realtimescheduler.h \
 	underlay/singlehostunderlay/tunoutscheduler.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -1650,6 +1668,8 @@ $O/applications/simplegameclient/traverseRoaming.o: applications/simplegameclien
 	common/TransportAddress.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
@@ -1692,6 +1712,8 @@ $O/applications/tcpexampleapp/TCPExampleApp.o: applications/tcpexampleapp/TCPExa
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -1782,6 +1804,8 @@ $O/common/BaseApp.o: common/BaseApp.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/applications/udpapp/UDPAppBase.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
@@ -1840,6 +1864,8 @@ $O/common/BaseOverlay.o: common/BaseOverlay.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/applications/udpapp/UDPAppBase.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
@@ -1911,6 +1937,8 @@ $O/common/BaseRpc.o: common/BaseRpc.cc \
 	common/cnetcommbuffer.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -1929,6 +1957,8 @@ $O/common/BaseTcpSupport.o: common/BaseTcpSupport.cc \
 	common/GlobalStatisticsAccess.h \
 	common/TransportAddress.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
@@ -1997,6 +2027,8 @@ $O/common/BootstrapList.o: common/BootstrapList.cc \
 	common/hashWatch.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	underlay/singlehostunderlay/ZeroconfConnector.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
@@ -2076,6 +2108,8 @@ $O/common/CryptoModule.o: common/CryptoModule.cc \
 	common/Vector2D.h \
 	common/cnetcommbuffer.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -2140,6 +2174,8 @@ $O/common/DiscoveryMode.o: common/DiscoveryMode.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/pastry/BasePastry.h \
 	overlay/pastry/PastryLeafSet.h \
 	overlay/pastry/PastryMessage_m.h \
@@ -2197,7 +2233,9 @@ $O/common/ExtTCPSocketMap.o: common/ExtTCPSocketMap.cc \
 $O/common/FinisherModule.o: common/FinisherModule.cc \
 	common/FinisherModule.h \
 	common/GlobalStatistics.h \
-	common/GlobalStatisticsAccess.h
+	common/GlobalStatisticsAccess.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h
 $O/common/GenericPacketParser.o: common/GenericPacketParser.cc \
 	common/GenericPacketParser.h \
 	common/PacketParser.h \
@@ -2239,6 +2277,8 @@ $O/common/GlobalNodeList.o: common/GlobalNodeList.cc \
 	common/hashWatch.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -2254,7 +2294,9 @@ $O/common/GlobalParameters.o: common/GlobalParameters.cc \
 	common/GlobalParameters.h \
 	common/OverlayKey.h
 $O/common/GlobalStatistics.o: common/GlobalStatistics.cc \
-	common/GlobalStatistics.h
+	common/GlobalStatistics.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h
 $O/common/GlobalTraceManager.o: common/GlobalTraceManager.cc \
 	common/BinaryValue.h \
 	common/ChurnGenerator.h \
@@ -2309,6 +2351,8 @@ $O/common/IterativeLookup.o: common/IterativeLookup.cc \
 	common/UnderlayConfigurator.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -2329,6 +2373,8 @@ $O/common/LifetimeChurn.o: common/LifetimeChurn.cc \
 	common/TransportAddress.h \
 	common/UnderlayConfigurator.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
@@ -2404,6 +2450,8 @@ $O/common/NeighborCache.o: common/NeighborCache.cc \
 	common/hashWatch.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -2503,6 +2551,8 @@ $O/common/Nps.o: common/Nps.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	underlay/simpleunderlay/SimpleInfo.h \
 	underlay/simpleunderlay/SimpleNodeEntry.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -2562,6 +2612,8 @@ $O/common/ParetoChurn.o: common/ParetoChurn.cc \
 	common/TransportAddress.h \
 	common/UnderlayConfigurator.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
@@ -2615,6 +2667,8 @@ $O/common/RandomChurn.o: common/RandomChurn.cc \
 	common/TransportAddress.h \
 	common/UnderlayConfigurator.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
 	$(INET_PROJ)/src/networklayer/contract/IPv6Address.h \
@@ -2722,6 +2776,8 @@ $O/common/SVivaldi.o: common/SVivaldi.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -2785,6 +2841,8 @@ $O/common/SimpleNcs.o: common/SimpleNcs.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	underlay/simpleunderlay/SimpleInfo.h \
 	underlay/simpleunderlay/SimpleNodeEntry.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -2855,6 +2913,8 @@ $O/common/SimpleUnderlayNCS.o: common/SimpleUnderlayNCS.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	underlay/simpleunderlay/SimpleInfo.h \
 	underlay/simpleunderlay/SimpleNodeEntry.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -2980,6 +3040,8 @@ $O/common/TreeManagement.o: common/TreeManagement.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -3030,6 +3092,8 @@ $O/common/UnderlayConfigurator.o: common/UnderlayConfigurator.cc \
 	common/UnderlayConfigurator.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -3088,6 +3152,8 @@ $O/common/Vivaldi.o: common/Vivaldi.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -3155,6 +3221,8 @@ $O/common/cbr/CBR-DHT.o: common/cbr/CBR-DHT.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -3280,6 +3348,8 @@ $O/common/cbr/GlobalViewBuilder.o: common/cbr/GlobalViewBuilder.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -3347,6 +3417,8 @@ $O/common/cbr/Landmark.o: common/cbr/Landmark.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	underlay/simpleunderlay/SimpleInfo.h \
 	underlay/simpleunderlay/SimpleNodeEntry.h \
 	underlay/simpleunderlay/SimpleUnderlayConfigurator.h \
@@ -3416,6 +3488,8 @@ $O/common/cbr/simplex.o: common/cbr/simplex.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -3488,6 +3562,8 @@ $O/common/cbr/globalViewBuilder/AbstractSendStrategy.o: common/cbr/globalViewBui
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -3576,6 +3652,8 @@ $O/common/cbr/globalViewBuilder/SendStrategyFactory.o: common/cbr/globalViewBuil
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -3649,6 +3727,8 @@ $O/common/cbr/globalViewBuilder/StrategyRegions.o: common/cbr/globalViewBuilder/
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -3722,6 +3802,8 @@ $O/common/cbr/globalViewBuilder/StrategyRemoveCoords.o: common/cbr/globalViewBui
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -3788,6 +3870,8 @@ $O/common/cbr/globalViewBuilder/StrategyRemoveInaccurate.o: common/cbr/globalVie
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -3858,6 +3942,8 @@ $O/common/cbr/globalViewBuilder/StrategyRemoveRandom.o: common/cbr/globalViewBui
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -3922,6 +4008,8 @@ $O/common/cbr/globalViewBuilder/StrategySendAll.o: common/cbr/globalViewBuilder/
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -3992,6 +4080,8 @@ $O/common/cbr/globalViewBuilder/StrategySimplifyCoords.o: common/cbr/globalViewB
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/base/ModuleAccess.h \
@@ -4056,6 +4146,8 @@ $O/common/cbr/globalViewBuilder/StrategyTreeTest.o: common/cbr/globalViewBuilder
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -4064,6 +4156,12 @@ $O/common/cbr/globalViewBuilder/StrategyTreeTest.o: common/cbr/globalViewBuilder
 	$(INET_PROJ)/src/transport/contract/TCPCommand_m.h \
 	$(INET_PROJ)/src/transport/contract/TCPSocket.h \
 	$(INET_PROJ)/src/transport/contract/TCPSocketMap.h
+$O/overlay/GlobalStatistics.o: overlay/GlobalStatistics.cc \
+	common/GlobalStatistics.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h
+$O/overlay/GlobalStatisticsUnit.o: overlay/GlobalStatisticsUnit.cc \
+	overlay/GlobalStatisticsUnit.h
 $O/overlay/ASD_TS/ATSLink.o: overlay/ASD_TS/ATSLink.cc \
 	common/TransportAddress.h \
 	common/oversim_mapset.h \
@@ -4103,6 +4201,8 @@ $O/overlay/ASD_TS/ATSOverlay.o: overlay/ASD_TS/ATSOverlay.cc \
 	overlay/ASD_TS/ATSOverlay_m.h \
 	overlay/ASD_TS/ATSPeerInfo.h \
 	overlay/ASD_TS/ATSPeerManager.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
 	$(INET_PROJ)/src/base/INotifiable.h \
 	$(INET_PROJ)/src/networklayer/contract/IPAddress.h \
@@ -4189,6 +4289,8 @@ $O/overlay/bamboo/Bamboo.o: overlay/bamboo/Bamboo.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/bamboo/Bamboo.h \
 	overlay/pastry/BasePastry.h \
 	overlay/pastry/PastryLeafSet.h \
@@ -4242,6 +4344,8 @@ $O/overlay/broose/Broose.o: overlay/broose/Broose.cc \
 	common/TransportAddress.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/broose/Broose.h \
 	overlay/broose/BrooseBucket.h \
 	overlay/broose/BrooseHandle.h \
@@ -4371,6 +4475,8 @@ $O/overlay/chord/Chord.o: overlay/chord/Chord.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/chord/Chord.h \
 	overlay/chord/ChordFingerTable.h \
 	overlay/chord/ChordMessage_m.h \
@@ -4435,6 +4541,8 @@ $O/overlay/chord/ChordFingerTable.o: overlay/chord/ChordFingerTable.cc \
 	common/hashWatch.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/chord/Chord.h \
 	overlay/chord/ChordFingerTable.h \
 	overlay/chord/ChordMessage_m.h \
@@ -4513,6 +4621,8 @@ $O/overlay/chord/ChordSuccessorList.o: overlay/chord/ChordSuccessorList.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/chord/Chord.h \
 	overlay/chord/ChordMessage_m.h \
 	overlay/chord/ChordSuccessorList.h \
@@ -4561,6 +4671,8 @@ $O/overlay/gia/Gia.o: overlay/gia/Gia.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/gia/Gia.h \
 	overlay/gia/GiaKeyList.h \
 	overlay/gia/GiaKeyListModule.h \
@@ -4762,6 +4874,8 @@ $O/overlay/kademlia/Kademlia.o: overlay/kademlia/Kademlia.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/kademlia/Kademlia.h \
 	overlay/kademlia/KademliaBucket.h \
 	overlay/kademlia/KademliaMessage_m.h \
@@ -4878,6 +4992,8 @@ $O/overlay/koorde/Koorde.o: overlay/koorde/Koorde.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/chord/Chord.h \
 	overlay/chord/ChordMessage_m.h \
 	overlay/chord/ChordSuccessorList.h \
@@ -4924,6 +5040,8 @@ $O/overlay/myoverlay/MyOverlay.o: overlay/myoverlay/MyOverlay.cc \
 	common/UnderlayConfigurator.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/myoverlay/MyOverlay.h \
 	overlay/myoverlay/MyOverlay_m.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -5074,6 +5192,8 @@ $O/overlay/nice/Nice.o: overlay/nice/Nice.cc \
 	common/hashWatch.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/nice/Nice.h \
 	overlay/nice/NiceCluster.h \
 	overlay/nice/NiceMessage_m.h \
@@ -5214,6 +5334,8 @@ $O/overlay/ntree/NTree.o: overlay/ntree/NTree.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/ntree/NTree.h \
 	overlay/ntree/NTreeHelper.h \
 	overlay/ntree/NTree_m.h \
@@ -5305,6 +5427,8 @@ $O/overlay/pastry/BasePastry.o: overlay/pastry/BasePastry.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/pastry/BasePastry.h \
 	overlay/pastry/PastryLeafSet.h \
 	overlay/pastry/PastryMessage_m.h \
@@ -5378,6 +5502,8 @@ $O/overlay/pastry/Pastry.o: overlay/pastry/Pastry.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/pastry/BasePastry.h \
 	overlay/pastry/Pastry.h \
 	overlay/pastry/PastryLeafSet.h \
@@ -5452,6 +5578,8 @@ $O/overlay/pastry/PastryLeafSet.o: overlay/pastry/PastryLeafSet.cc \
 	common/cbr/yang.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/pastry/BasePastry.h \
 	overlay/pastry/PastryLeafSet.h \
 	overlay/pastry/PastryMessage_m.h \
@@ -5578,6 +5706,8 @@ $O/overlay/pubsubmmog/PubSubLobby.o: overlay/pubsubmmog/PubSubLobby.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/pubsubmmog/PubSubLobby.h \
 	overlay/pubsubmmog/PubSubMessage_m.h \
 	overlay/pubsubmmog/PubSubSubspace.h \
@@ -5626,6 +5756,8 @@ $O/overlay/pubsubmmog/PubSubMMOG.o: overlay/pubsubmmog/PubSubMMOG.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/pubsubmmog/PubSubMMOG.h \
 	overlay/pubsubmmog/PubSubMessage_m.h \
 	overlay/pubsubmmog/PubSubSubspace.h \
@@ -5706,6 +5838,8 @@ $O/overlay/quon/ConnectivityProbeQuon.o: overlay/quon/ConnectivityProbeQuon.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/quon/ConnectivityProbeQuon.h \
 	overlay/quon/LoginCache.h \
 	overlay/quon/Quon.h \
@@ -5732,6 +5866,8 @@ $O/overlay/quon/LoginCache.o: overlay/quon/LoginCache.cc \
 	common/TransportAddress.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/quon/LoginCache.h \
 	overlay/quon/QuonDefs.h \
 	overlay/quon/QuonHelper.h \
@@ -5776,6 +5912,8 @@ $O/overlay/quon/Quon.o: overlay/quon/Quon.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/quon/LoginCache.h \
 	overlay/quon/Quon.h \
 	overlay/quon/QuonDefs.h \
@@ -5845,6 +5983,8 @@ $O/overlay/vast/ConnectivityProbe.o: overlay/vast/ConnectivityProbe.cc \
 	common/TransportAddress.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/vast/ConnectivityProbe.h \
 	overlay/vast/Vast.h \
 	overlay/vast/VastDefs.h \
@@ -5892,6 +6032,8 @@ $O/overlay/vast/Vast.o: overlay/vast/Vast.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	overlay/vast/Vast.h \
 	overlay/vast/VastDefs.h \
 	overlay/vast/Vast_m.h \
@@ -5967,6 +6109,8 @@ $O/tier2/dhttestapp/DHTTestApp.o: tier2/dhttestapp/DHTTestApp.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	tier2/dhttestapp/DHTTestApp.h \
 	tier2/dhttestapp/GlobalDhtTestMap.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -5986,6 +6130,8 @@ $O/tier2/dhttestapp/GlobalDhtTestMap.o: tier2/dhttestapp/GlobalDhtTestMap.cc \
 	common/GlobalStatistics.h \
 	common/GlobalStatisticsAccess.h \
 	common/OverlayKey.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	tier2/dhttestapp/DHTTestAppMessages_m.h \
 	tier2/dhttestapp/GlobalDhtTestMap.h
 $O/tier2/p2pns/P2pns.o: tier2/p2pns/P2pns.cc \
@@ -6096,6 +6242,8 @@ $O/tier2/simmud/SimMud.o: tier2/simmud/SimMud.cc \
 	common/TransportAddress.h \
 	common/Vector2D.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	tier2/simmud/SimMud.h \
 	tier2/simmud/SimMud_m.h \
 	$(INET_PROJ)/src/base/INETDefs.h \
@@ -6425,6 +6573,8 @@ $O/underlay/simpleunderlay/SimpleTCP.o: underlay/simpleunderlay/SimpleTCP.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	underlay/simpleunderlay/SimpleInfo.h \
 	underlay/simpleunderlay/SimpleNodeEntry.h \
 	underlay/simpleunderlay/SimpleTCP.h \
@@ -6475,6 +6625,8 @@ $O/underlay/simpleunderlay/SimpleUDP.o: underlay/simpleunderlay/SimpleUDP.cc \
 	common/Vector2D.h \
 	common/oversim_byteswap.h \
 	common/oversim_mapset.h \
+	overlay/GlobalStatistics.h \
+	overlay/GlobalStatisticsUnit.h \
 	underlay/simpleunderlay/SimpleInfo.h \
 	underlay/simpleunderlay/SimpleNodeEntry.h \
 	underlay/simpleunderlay/SimpleUDP.h \

@@ -40,7 +40,7 @@ class Nice;
 #include <vector>
 #include "combination.h"
 #include <algorithm>
-
+#include "overlay/GlobalStatistics.h"
 #include <fstream>
 
 namespace oversim
@@ -108,6 +108,10 @@ private:
     double nice_finishJoinTime;
     double nice_maxdataTimeStamp;
     double nice_finaldataTimeStamp;
+    double nice_statisticsTimer;
+    double nice_statisticsInterval;
+
+    Fanjing::GlobalStatistics *gs;
 
 
     int pimp;
